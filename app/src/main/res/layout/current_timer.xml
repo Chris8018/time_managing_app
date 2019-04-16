@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/current_task"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="12dp">
@@ -11,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/task_name"
+            android:id="@+id/current_task_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -21,36 +22,36 @@
             tools:text="TASK NAME" />
 
         <TextClock
-            android:id="@+id/duration"
+            android:id="@+id/current_task_duration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/task_name"
+            app:layout_constraintTop_toBottomOf="@+id/current_task_name"
             tools:text="DURATION" />
 
         <TextView
-            android:id="@+id/delete_button"
+            android:id="@+id/stop_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/button_border"
-            android:text="Delete"
+            android:text="STOP"
             android:textAlignment="center"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/start_button"
-            app:layout_constraintTop_toBottomOf="@id/duration" />
+            app:layout_constraintRight_toLeftOf="@id/finish_button"
+            app:layout_constraintTop_toBottomOf="@id/current_task_duration" />
 
         <TextView
-            android:id="@+id/start_button"
+            android:id="@+id/finish_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/button_border"
-            android:text="Start"
+            android:text="FINISH"
             android:textAlignment="center"
-            app:layout_constraintLeft_toRightOf="@id/delete_button"
+            app:layout_constraintLeft_toRightOf="@id/stop_button"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/duration" />
+            app:layout_constraintTop_toBottomOf="@id/current_task_duration" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
