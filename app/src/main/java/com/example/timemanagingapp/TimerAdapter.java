@@ -39,6 +39,7 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerHolder>
     }
 
     class TimerHolder extends RecyclerView.ViewHolder {
+        //
         public TimerHolder(@NonNull View itemView) {
             super(itemView);
         }
