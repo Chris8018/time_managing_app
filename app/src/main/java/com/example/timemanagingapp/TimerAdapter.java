@@ -39,13 +39,15 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerHolder>
 
     @Override
     public int getItemCount() {
-        return 0;
+        return timers.size();
     }
 
     class TimerHolder extends RecyclerView.ViewHolder {
 
+        private static final String TAG = "TimerHolder";
+
         private TextView task_name;
-        private TextClock duration;
+        private TextView duration;
         private TextView delete_button;
         private TextView start_button;
 
