@@ -1,9 +1,9 @@
 package com.example.timemanagingapp;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextClock;
 import android.widget.TextView;
 
 import java.util.List;
@@ -11,15 +11,21 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static com.example.timemanagingapp.MainActivity.timers;
+
 public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerHolder> {
 
     private static final String TAG = "TimerAdapter";
 
-    List<TimerInfo> timers;
+//    List<TimerInfo> timers;
 
-    public TimerAdapter(List<TimerInfo> timers) {
-        this.timers = timers;
+    public TimerAdapter() {
+        Log.d(TAG, "Start TimerAdapter without arg");
     }
+
+//    public TimerAdapter(List<TimerInfo> timers) {
+//        this.timers = timers;
+//    }
 
     @NonNull
     @Override
@@ -54,12 +60,13 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerHolder>
         // TODO: Add click, hold, swipe left, right events for this view holder
         public TimerHolder(@NonNull View itemView) {
             super(itemView);
-            task_name = itemView.findViewById(R.id.task_name);
+            task_name = itemView.findViewById(R.id.task);
             duration = itemView.findViewById(R.id.duration);
             delete_button = itemView.findViewById(R.id.delete_button);
             start_button = itemView.findViewById(R.id.start_button);
 
             // TODO: Add click event for button
+
         }
     }
 

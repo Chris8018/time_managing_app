@@ -15,16 +15,18 @@
             android:id="@+id/current_task_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Task name"
             android:textAlignment="center"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="TASK NAME" />
 
-        <TextClock
+        <TextView
             android:id="@+id/current_task_duration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Duration time"
             android:textAlignment="center"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
