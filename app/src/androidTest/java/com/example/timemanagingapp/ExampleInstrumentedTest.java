@@ -24,4 +24,9 @@ public class ExampleInstrumentedTest {
 
         assertEquals("com.example.timemanagingapp", appContext.getPackageName());
     }
+
+    @Test
+    public void createTimer() {
+        //
+    }
 }
