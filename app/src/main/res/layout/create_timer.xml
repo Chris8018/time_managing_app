@@ -37,7 +37,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/task_duration"
-            android:layout_width="wrap_content"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:text="00:00:00" />
     </com.google.android.material.textfield.TextInputLayout>

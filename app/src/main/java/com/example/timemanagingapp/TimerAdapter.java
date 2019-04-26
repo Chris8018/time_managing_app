@@ -41,6 +41,15 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerHolder>
         TimerInfo timer = timers.get(position);
         holder.task_name.setText(timer.getTask());
         holder.duration.setText(timer.getDuration());
+        holder.start_button.setOnClickListener(view -> {
+            Log.d(TAG, holder.task_name.getText() + " start button is pressed");
+        });
+        holder.delete_button.setOnClickListener(view -> {
+            Log.d(TAG, holder.task_name.getText() + " delete button is pressed");
+            timers.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, timers.size());
+        });
     }
 
     @Override
