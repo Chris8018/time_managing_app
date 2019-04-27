@@ -51,9 +51,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "Add timer button is clicked");
             startActivity(new Intent(MainActivity.this, CreateTimer.class));
         });
-
-
-
     }
 
 }
