@@ -2,13 +2,13 @@ package com.example.timemanagingapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
+import com.example.timemanagingapp.room_database.TimerInfo;
 
 import static com.example.timemanagingapp.MainActivity.timers;
 

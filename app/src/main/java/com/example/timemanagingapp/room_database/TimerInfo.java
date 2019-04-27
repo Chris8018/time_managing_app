@@ -1,4 +1,4 @@
-package com.example.timemanagingapp;
+package com.example.timemanagingapp.room_database;
 
 public class TimerInfo {
     private String task;
