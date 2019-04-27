@@ -1,4 +1,4 @@
-package com.example.timemanagingapp;
+package com.example.timemanagingapp.recycler_view;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.timemanagingapp.R;
 import com.example.timemanagingapp.room_database.TimerInfo;
 
 import static com.example.timemanagingapp.MainActivity.timers;

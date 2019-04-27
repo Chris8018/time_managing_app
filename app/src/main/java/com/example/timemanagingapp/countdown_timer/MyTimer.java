@@ -1,4 +1,4 @@
-package com.example.timemanagingapp;
+package com.example.timemanagingapp.countdown_timer;
 
 import android.os.CountDownTimer;
 

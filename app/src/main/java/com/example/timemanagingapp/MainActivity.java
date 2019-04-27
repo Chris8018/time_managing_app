@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.timemanagingapp.recycler_view.TimerAdapter;
 import com.example.timemanagingapp.room_database.TimerInfo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
