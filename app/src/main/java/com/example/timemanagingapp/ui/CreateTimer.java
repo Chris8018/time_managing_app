@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.timemanagingapp.R;
-import com.example.timemanagingapp.model.TimerInfo;
+import com.example.timemanagingapp.model.Timer;
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
 import static com.example.timemanagingapp.ui.MainActivity.timers;
@@ -61,8 +61,8 @@ public class CreateTimer extends AppCompatActivity {
             String task_str = task.getText().toString().trim();
 
             if (!TextUtils.isEmpty(task_str)) {
-                timers.add(new TimerInfo(task_str, duration.getText().toString()));
-//              timers.add(0, new TimerInfo(task.getText().toString(), duration.getText().toString()));
+                timers.add(new Timer(task_str, duration.getText().toString()));
+//              timers.add(0, new Timer(task.getText().toString(), duration.getText().toString()));
                 startActivity(new Intent(CreateTimer.this, MainActivity.class));
             }
 

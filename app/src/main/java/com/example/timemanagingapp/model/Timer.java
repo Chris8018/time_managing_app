@@ -1,10 +1,10 @@
 package com.example.timemanagingapp.model;
 
-public class TimerInfo {
+public class Timer {
     private String task;
     private String duration;
 
-    public TimerInfo(String task, String duration) {
+    public Timer(String task, String duration) {
         this.task = task;
         this.duration = duration;
     }

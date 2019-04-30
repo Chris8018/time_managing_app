@@ -10,35 +10,35 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.timemanagingapp.R;
-import com.example.timemanagingapp.model.TimerInfo;
+import com.example.timemanagingapp.model.Timer;
 
 import static com.example.timemanagingapp.ui.MainActivity.timers;
 
-public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerHolder> {
+public class TimersAdapter extends RecyclerView.Adapter<TimersAdapter.TimerHolder> {
 
-    private static final String TAG = "TimerAdapter";
+    private static final String TAG = "TimersAdapter";
 
-//    List<TimerInfo> timers;
+//    List<Timer> timers;
 
     private ListItemListener listItemListener;
 
-//    List<TimerInfo> timers;
+//    List<Timer> timers;
 
-//    public TimerAdapter() {
-//        Log.d(TAG, "Start TimerAdapter without arg");
+//    public TimersAdapter() {
+//        Log.d(TAG, "Start TimersAdapter without arg");
 //    }
-    public TimerAdapter(/*List<TimerInfo> timers, */ListItemListener listItemListener) {
-        Log.d(TAG, "Start TimerAdapter with ListItemListener");
+    public TimersAdapter(/*List<Timer> timers, */ListItemListener listItemListener) {
+        Log.d(TAG, "Start TimersAdapter with ListItemListener");
         this.listItemListener = listItemListener;
     }
 
-//    public TimerAdapter(List<TimerInfo> timers) {
+//    public TimersAdapter(List<Timer> timers) {
 //        this.timers = timers;
 //    }
 
     @NonNull
     @Override
-    public TimerAdapter.TimerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TimersAdapter.TimerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.timer_row, parent, false);
@@ -46,8 +46,8 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerHolder>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TimerAdapter.TimerHolder holder, int position) {
-        TimerInfo timer = timers.get(position);
+    public void onBindViewHolder(@NonNull TimersAdapter.TimerHolder holder, int position) {
+        Timer timer = timers.get(position);
         holder.task_name.setText(timer.getTask());
 
         holder.duration.setText(timer.getDuration());
@@ -58,7 +58,7 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerHolder>
 //            if no timer is running -> remove this timer out of recycler view ->
 //            show this timer info on top (current timer)
 //             */
-//            TimerInfo task = timers.remove(position);
+//            Timer task = timers.remove(position);
 //            notifyItemRemoved(position);
 //            notifyItemRangeChanged(position, timers.size());
 
@@ -79,8 +79,8 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerHolder>
         return timers.size();
     }
 
-    public TimerInfo removeAt(int position) {
-        TimerInfo task = timers.remove(position);
+    public Timer removeAt(int position) {
+        Timer task = timers.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, timers.size());
         return task;

@@ -7,21 +7,21 @@ import androidx.room.Dao;
 public interface DaoAccess {
 
 //    @Insert
-//    Long insertTask(TimerInfo note);
+//    Long insertTask(Timer note);
 //
 //
-//    @Query("SELECT * FROM TimerInfo ORDER BY created_at desc")
-//    LiveData<List<TimerInfo>> fetchAllTasks();
+//    @Query("SELECT * FROM Timer ORDER BY created_at desc")
+//    LiveData<List<Timer>> fetchAllTasks();
 //
 //
-//    @Query("SELECT * FROM TimerInfo WHERE id =:taskId")
-//    LiveData<TimerInfo> getTask(int taskId);
+//    @Query("SELECT * FROM Timer WHERE id =:taskId")
+//    LiveData<Timer> getTask(int taskId);
 //
 //
 //    @Update
-//    void updateTask(TimerInfo note);
+//    void updateTask(Timer note);
 //
 //
 //    @Delete
-//    void deleteTask(TimerInfo note);
+//    void deleteTask(Timer note);
 }

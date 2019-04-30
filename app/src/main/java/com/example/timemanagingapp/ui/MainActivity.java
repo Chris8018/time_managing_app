@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.timemanagingapp.R;
+import com.example.timemanagingapp.adapter.TimersAdapter;
+import com.example.timemanagingapp.model.Timer;
 import com.example.timemanagingapp.util.TimeStampConverter;
-import com.example.timemanagingapp.adapter.TimerAdapter;
-import com.example.timemanagingapp.model.TimerInfo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -27,14 +27,14 @@ public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton add_timer_button;
 
-    TimerInfo current_task;
+    Timer current_task;
 
     // TODO: global in this class or local to a function
     RecyclerView recyclerView;
-    TimerAdapter timerAdapter;
+    TimersAdapter timerAdapter;
 
     // TODO: fix this when start implement database
-    public static List<TimerInfo> timers = new ArrayList<>();
+    public static List<Timer> timers = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,16 +49,16 @@ public class MainActivity extends AppCompatActivity {
 //        timers = new ArrayList<>();
 
 //        for (int i = 0; i < 10; i++) {
-//            timers.add(new TimerInfo("Task " + i, "00:00:10"));
+//            timers.add(new Timer("Task " + i, "00:00:10"));
 //        }
 
         // Initialize posts
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setAdapter(new TimerAdapter(timers));
+//        recyclerView.setAdapter(new TimersAdapter(timers));
 
-        timerAdapter = new TimerAdapter(new TimerAdapter.ListItemListener() {
+        timerAdapter = new TimersAdapter(new TimersAdapter.ListItemListener() {
             @Override
             public void onStartClick(int position) {
                 if (current_task == null) {
