@@ -26,13 +26,7 @@ public class TimerRepository {
     }
 
     public void insertTask(final Timer timer) {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground (Void...voids){
-                timerDatabase.daoAccess().insertTask(timer);
-                return null;
-            }
-        }.execute();
+        new Thread(() -> timerDatabase.daoAccess().insertTask(timer)).start();
     }
 
     public void updateTimer() {
@@ -43,7 +37,7 @@ public class TimerRepository {
         // TODO
     }
 
-    public LiveData<Timer> getTimer() {
+    public LiveData<List<Timer>> getScheduledTimers() {
         // TODO
         return null;
     }
