@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.timemanagingapp.R;
 import com.example.timemanagingapp.room_database.TimerInfo;
 
+import org.w3c.dom.Text;
+
 import static com.example.timemanagingapp.MainActivity.timers;
 
 public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerHolder> {
@@ -41,6 +43,7 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerHolder>
     public void onBindViewHolder(@NonNull TimerAdapter.TimerHolder holder, int position) {
         TimerInfo timer = timers.get(position);
         holder.task_name.setText(timer.getTask());
+
         holder.duration.setText(timer.getDuration());
 
         holder.start_button.setOnClickListener(view -> {
@@ -53,7 +56,7 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerHolder>
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, timers.size());
 
-            //
+            //TextView current_task_name = findViewByID()
         });
 
         holder.delete_button.setOnClickListener(view -> {
