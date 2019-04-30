@@ -1,4 +1,4 @@
-package com.example.timemanagingapp;
+package com.example.timemanagingapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +12,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.timemanagingapp.converter.TimeStampConverter;
-import com.example.timemanagingapp.recycler_view.TimerAdapter;
-import com.example.timemanagingapp.room_database.TimerInfo;
+import com.example.timemanagingapp.R;
+import com.example.timemanagingapp.util.TimeStampConverter;
+import com.example.timemanagingapp.adapter.TimerAdapter;
+import com.example.timemanagingapp.model.TimerInfo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                     current_task_duration.setText(current_task.getDuration());
                     TimeStampConverter timeStampConverter = new TimeStampConverter();
 
+                    // TODO: need some change to redraw when come back from different activity
                     new CountDownTimer(timeStampConverter.fromTimeStamp(current_task.getDuration()),
                             1000) {
 
@@ -107,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, CreateTimer.class));
         });
     }
+
 
 
 }

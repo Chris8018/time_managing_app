@@ -1,4 +1,4 @@
-package com.example.timemanagingapp.recycler_view;
+package com.example.timemanagingapp.adapter;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,13 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.timemanagingapp.R;
-import com.example.timemanagingapp.room_database.TimerInfo;
+import com.example.timemanagingapp.model.TimerInfo;
 
-import org.w3c.dom.Text;
-
-import java.util.List;
-
-import static com.example.timemanagingapp.MainActivity.timers;
+import static com.example.timemanagingapp.ui.MainActivity.timers;
 
 public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerHolder> {
 

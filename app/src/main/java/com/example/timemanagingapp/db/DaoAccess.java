@@ -1,14 +1,7 @@
-package com.example.timemanagingapp.room_database;
+package com.example.timemanagingapp.db;
 
 
 import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Update;
-import androidx.room.Insert;
-import androidx.room.Query;
-import androidx.lifecycle.LiveData;
-
-import java.util.List;
 
 @Dao
 public interface DaoAccess {
