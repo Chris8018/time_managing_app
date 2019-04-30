@@ -48,7 +48,7 @@ public class TimersAdapter extends RecyclerView.Adapter<TimersAdapter.TimerHolde
     @Override
     public void onBindViewHolder(@NonNull TimersAdapter.TimerHolder holder, int position) {
         Timer timer = timers.get(position);
-        holder.task_name.setText(timer.getTask());
+        holder.task_name.setText(timer.getTaskName());
 
         holder.duration.setText(timer.getDuration());
 

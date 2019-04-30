@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                     TextView current_task_name = findViewById(R.id.current_task_name);
                     TextView current_task_duration = findViewById(R.id.current_task_duration);
 
-                    current_task_name.setText(current_task.getTask());
+                    current_task_name.setText(current_task.getTaskName());
                     current_task_duration.setText(current_task.getDuration());
                     TimeStampConverter timeStampConverter = new TimeStampConverter();
 
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDeleteClick(int position) {
                 Toast.makeText(MainActivity.this,
-                        "Delete " + timers.get(position).getTask(), Toast.LENGTH_SHORT).show();
+                        "Delete " + timers.get(position).getTaskName(), Toast.LENGTH_SHORT).show();
                 timerAdapter.removeAt(position);
             }
         });
