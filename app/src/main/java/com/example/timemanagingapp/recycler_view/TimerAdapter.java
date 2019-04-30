@@ -62,11 +62,10 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerHolder>
 //            if no timer is running -> remove this timer out of recycler view ->
 //            show this timer info on top (current timer)
 //             */
-            TimerInfo task = timers.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, timers.size());
+//            TimerInfo task = timers.remove(position);
+//            notifyItemRemoved(position);
+//            notifyItemRangeChanged(position, timers.size());
 
-            //TextView current_task_name = findViewByID()
             listItemListener.onStartClick(position);
         });
 

@@ -2,14 +2,17 @@ package com.example.timemanagingapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.timemanagingapp.converter.TimeStampConverter;
 import com.example.timemanagingapp.recycler_view.TimerAdapter;
 import com.example.timemanagingapp.room_database.TimerInfo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 //        timers = new ArrayList<>();
 
 //        for (int i = 0; i < 10; i++) {
-//            timers.add(new TimerInfo("Task " + i, Integer.toString(i)));
+//            timers.add(new TimerInfo("Task " + i, "00:00:10"));
 //        }
 
         // Initialize posts
@@ -57,16 +60,42 @@ public class MainActivity extends AppCompatActivity {
         timerAdapter = new TimerAdapter(new TimerAdapter.ListItemListener() {
             @Override
             public void onStartClick(int position) {
-                current_task = timerAdapter.removeAt(position);
-                TextView current_task_name = findViewById(R.id.current_task_name);
-                TextView current_task_duration = findViewById(R.id.current_task_duration);
+                if (current_task == null) {
+                    current_task = timerAdapter.removeAt(position);
+                    TextView current_task_name = findViewById(R.id.current_task_name);
+                    TextView current_task_duration = findViewById(R.id.current_task_duration);
 
-                current_task_name.setText(current_task.getTask());
-                current_task_duration.setText(current_task.getDuration());
+                    current_task_name.setText(current_task.getTask());
+                    current_task_duration.setText(current_task.getDuration());
+                    TimeStampConverter timeStampConverter = new TimeStampConverter();
+
+                    new CountDownTimer(timeStampConverter.fromTimeStamp(current_task.getDuration()),
+                            1000) {
+
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            current_task_duration.setText(
+                                    timeStampConverter.toTimeStamp(millisUntilFinished));
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            Toast.makeText(MainActivity.this,
+                                    "Finish Timer", Toast.LENGTH_SHORT).show();
+                            current_task_name.setText("");
+                            current_task_duration.setText("00:00:00");
+                            current_task = null;
+                        }
+                    }.start();
+                } else
+                    Toast.makeText(MainActivity.this,
+                            "A timer is running", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onDeleteClick(int position) {
+                Toast.makeText(MainActivity.this,
+                        "Delete " + timers.get(position).getTask(), Toast.LENGTH_SHORT).show();
                 timerAdapter.removeAt(position);
             }
         });

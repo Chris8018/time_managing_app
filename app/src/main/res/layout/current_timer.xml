@@ -26,7 +26,7 @@
             android:id="@+id/current_task_duration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No Duration"
+            android:text="00:00:00"
             android:textAlignment="center"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:background="?attr/editTextBackground"
             android:gravity="center_vertical"
-            android:text="00:05:00"
+            android:text="00:00:10"
             android:textAppearance="?android:attr/textAppearanceMediumInverse"
             android:textColor="?attr/editTextColor" />
 
