@@ -14,6 +14,8 @@ import com.example.timemanagingapp.room_database.TimerInfo;
 
 import org.w3c.dom.Text;
 
+import java.util.List;
+
 import static com.example.timemanagingapp.MainActivity.timers;
 
 public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerHolder> {
@@ -22,8 +24,16 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerHolder>
 
 //    List<TimerInfo> timers;
 
-    public TimerAdapter() {
-        Log.d(TAG, "Start TimerAdapter without arg");
+    private ListItemListener listItemListener;
+
+//    List<TimerInfo> timers;
+
+//    public TimerAdapter() {
+//        Log.d(TAG, "Start TimerAdapter without arg");
+//    }
+    public TimerAdapter(/*List<TimerInfo> timers, */ListItemListener listItemListener) {
+        Log.d(TAG, "Start TimerAdapter with ListItemListener");
+        this.listItemListener = listItemListener;
     }
 
 //    public TimerAdapter(List<TimerInfo> timers) {
@@ -47,29 +57,38 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerHolder>
         holder.duration.setText(timer.getDuration());
 
         holder.start_button.setOnClickListener(view -> {
-            Log.d(TAG, holder.task_name.getText() + " start button is pressed");
-            /*
-            if no timer is running -> remove this timer out of recycler view ->
-            show this timer info on top (current timer)
-             */
+//            Log.d(TAG, holder.task_name.getText() + " start button is pressed");
+//            /*
+//            if no timer is running -> remove this timer out of recycler view ->
+//            show this timer info on top (current timer)
+//             */
             TimerInfo task = timers.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, timers.size());
 
             //TextView current_task_name = findViewByID()
+            listItemListener.onStartClick(position);
         });
 
         holder.delete_button.setOnClickListener(view -> {
-            Log.d(TAG, holder.task_name.getText() + " delete button is pressed");
-            timers.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, timers.size());
+            listItemListener.onDeleteClick(position);
+//            Log.d(TAG, holder.task_name.getText() + " delete button is pressed");
+//            timers.remove(position);
+//            notifyItemRemoved(position);
+//            notifyItemRangeChanged(position, timers.size());
         });
     }
 
     @Override
     public int getItemCount() {
         return timers.size();
+    }
+
+    public TimerInfo removeAt(int position) {
+        TimerInfo task = timers.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, timers.size());
+        return task;
     }
 
     class TimerHolder extends RecyclerView.ViewHolder {
@@ -92,6 +111,12 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerHolder>
             // TODO: Add click event for button
 
         }
+    }
+
+    public interface ListItemListener {
+
+        void onStartClick(int position);
+        void onDeleteClick(int position);
     }
 
 }

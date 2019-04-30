@@ -3,6 +3,7 @@ package com.example.timemanagingapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -22,6 +23,13 @@ public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton add_timer_button;
 
+    TimerInfo current_task;
+
+    // TODO: global in this class or local to a function
+    RecyclerView recyclerView;
+    TimerAdapter timerAdapter;
+
+    // TODO: fix this when start implement database
     public static List<TimerInfo> timers = new ArrayList<>();
 
     @Override
@@ -42,10 +50,27 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize posts
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerView.setAdapter(new TimerAdapter(timers));
-        recyclerView.setAdapter(new TimerAdapter());
+
+        timerAdapter = new TimerAdapter(new TimerAdapter.ListItemListener() {
+            @Override
+            public void onStartClick(int position) {
+                current_task = timerAdapter.removeAt(position);
+                TextView current_task_name = findViewById(R.id.current_task_name);
+                TextView current_task_duration = findViewById(R.id.current_task_duration);
+
+                current_task_name.setText(current_task.getTask());
+                current_task_duration.setText(current_task.getDuration());
+            }
+
+            @Override
+            public void onDeleteClick(int position) {
+                timerAdapter.removeAt(position);
+            }
+        });
+        recyclerView.setAdapter(timerAdapter);
 
         add_timer_button = findViewById(R.id.add_timer_button);
         add_timer_button.setOnClickListener(view -> {
@@ -53,5 +78,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, CreateTimer.class));
         });
     }
+
 
 }
