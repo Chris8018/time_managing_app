@@ -40,6 +40,8 @@ public class CreateTimer extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_timer);
+
+        init();
 //
 //        taskName = findViewById(R.id.task_name);
 //
