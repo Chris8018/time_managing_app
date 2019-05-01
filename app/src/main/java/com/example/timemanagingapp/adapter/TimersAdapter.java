@@ -104,15 +104,13 @@ public class TimersAdapter extends RecyclerView.Adapter<TimersAdapter.TimerHolde
         private TextView delete_button;
         private TextView start_button;
 
-        // TODO: Add click, hold, swipe left, right events for this view holder
+        // TODO: add hold, swipe left, right events for this view holder
         public TimerHolder(@NonNull View itemView) {
             super(itemView);
             task_name = itemView.findViewById(R.id.task_name);
             duration = itemView.findViewById(R.id.duration);
             delete_button = itemView.findViewById(R.id.delete_button);
             start_button = itemView.findViewById(R.id.start_button);
-
-            // TODO: Add click event for button
 
         }
     }

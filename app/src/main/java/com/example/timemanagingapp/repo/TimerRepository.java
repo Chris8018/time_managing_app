@@ -30,13 +30,11 @@ public class TimerRepository {
     }
 
     public LiveData<List<Timer>> getScheduledTimers() {
-        // TODO
-        return null;
+        return timerDatabase.daoAccess().scheduledTimers();
     }
 
     public LiveData<List<Timer>> getFinishedTimers() {
-        // TODO
-        return null;
+        return timerDatabase.daoAccess().finishedTimers();
     }
 
     public void updateTimer(final Timer timer) {

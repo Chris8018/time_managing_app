@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
 
     private FloatingActionButton add_timer_button;
 
-    Timer current_task;
+//    Timer current_task;
 
     // TODO: global in this class or local to a function
     private RecyclerView recyclerView;
@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
 //                    current_task_duration.setText(current_task.getDuration());
 //                    TimeStampConverter timeStampConverter = new TimeStampConverter();
 //
-//                    // TODO: need some change to redraw when come back from different activity
 //                    new CountDownTimer(timeStampConverter.fromTimeStamp(current_task.getDuration()),
 //                            1000) {
 //
@@ -123,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // TODO: add swipe left and right listener
+        // TODO: add swipe left and right listener to recycler view holder
 
         add_timer_button = findViewById(R.id.add_timer_button);
         add_timer_button.setOnClickListener(view -> {
