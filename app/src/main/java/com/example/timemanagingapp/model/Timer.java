@@ -8,8 +8,8 @@ import androidx.room.TypeConverters;
 @Entity
 public class Timer {
 
-//    @PrimaryKey(autoGenerate = true)
-//    private int id;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
     @ColumnInfo(name = "task_name")
     private String taskName;
@@ -17,13 +17,19 @@ public class Timer {
     @ColumnInfo(name = "duration")
     private String duration;
 
+    @ColumnInfo(name = "date")
+    private String date;
+
     @ColumnInfo(name = "finished")
-    private Boolean finished = false;
+    private boolean finished = false;
+
+    @ColumnInfo(name = "running")
+    private boolean running = false;
 
     private String description;
 
-    public Timer(String task, String duration) {
-        this.taskName = task;
+    public Timer(String taskName, String duration) {
+        this.taskName = taskName;
         this.duration = duration;
     }
 
@@ -49,5 +55,37 @@ public class Timer {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Boolean getFinished() {
+        return finished;
+    }
+
+    public void setFinished(Boolean finished) {
+        this.finished = finished;
+    }
+
+    public Boolean getRunning() {
+        return running;
+    }
+
+    public void setRunning(Boolean running) {
+        this.running = running;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

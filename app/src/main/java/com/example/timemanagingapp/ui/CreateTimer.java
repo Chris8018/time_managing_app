@@ -12,63 +12,104 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.timemanagingapp.R;
-import com.example.timemanagingapp.model.Timer;
+
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
-import static com.example.timemanagingapp.ui.MainActivity.timers;
+//import static com.example.timemanagingapp.ui.MainActivity.timers;
 
+import com.example.timemanagingapp.model.Timer;
+import com.example.timemanagingapp.repo.TimerRepository;
 import com.example.timemanagingapp.util.TimeStampConverter;
 
 public class CreateTimer extends AppCompatActivity {
 
     private static final String TAG = "CreateTimer";
 
-    EditText task;
-    TextView duration;
-    EditText desc;
+    private EditText taskName;
+    private TextView duration;
+    private EditText desc;
 
-    Button button;
+    private Button createTimerButton;
 
-    TimeDurationPickerDialog timeDurationPickerDialog;
+    private TimerRepository timerRepository;
+
+    private TimeDurationPickerDialog timeDurationPickerDialog;
+    private TimeStampConverter timeStampConverter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_timer);
+//
+//        taskName = findViewById(R.id.task_name);
+//
+//
+////        if (TextUtils.isEmpty(taskName.getText().toString()))
+////            taskName.setError("The item cannot be empty");
+//
+//        duration = findViewById(R.id.task_duration);
+//        desc = findViewById(R.id.task_desc);
+//
+//        duration.setOnClickListener(view -> {
+//            TimeStampConverter timeStampConverter = new TimeStampConverter();
+//            timeDurationPickerDialog = new TimeDurationPickerDialog(
+//                    CreateTimer.this, (timePicker, time) -> {
+//                        duration.setText(timeStampConverter.toTimeStamp(time));
+//                        }, timeStampConverter.fromTimeStamp(duration.getText().toString()));
+//            timeDurationPickerDialog.show();
+//        });
+//
+//        createTimerButton = findViewById(R.id.create_button);
+//        createTimerButton.setOnClickListener(view -> {
+//            Log.d(TAG, "Create new Timer, add it to the end of current list");
+//            String task_str = taskName.getText().toString().trim();
+//
+//            if (!TextUtils.isEmpty(task_str)) {
+//                timers.add(new Timer(task_str, duration.getText().toString()));
+////              timers.add(0, new Timer(taskName.getText().toString(), duration.getText().toString()));
+//                startActivity(new Intent(CreateTimer.this, MainActivity.class));
+//            }
+//
+//            if (TextUtils.isEmpty(task_str))
+//                taskName.setError("The item cannot be empty");
+//        });
 
-        task = findViewById(R.id.task_name);
+    }
 
+    public void init() {
+        timerRepository = new TimerRepository(getApplicationContext());
 
-//        if (TextUtils.isEmpty(task.getText().toString()))
-//            task.setError("The item cannot be empty");
+        timeStampConverter = new TimeStampConverter();
+
+        taskName = findViewById(R.id.task_name);
 
         duration = findViewById(R.id.task_duration);
         desc = findViewById(R.id.task_desc);
 
         duration.setOnClickListener(view -> {
-            TimeStampConverter timeStampConverter = new TimeStampConverter();
             timeDurationPickerDialog = new TimeDurationPickerDialog(
                     CreateTimer.this, (timePicker, time) -> {
-                        duration.setText(timeStampConverter.toTimeStamp(time));
-                        }, timeStampConverter.fromTimeStamp(duration.getText().toString()));
+                duration.setText(timeStampConverter.toTimeStamp(time));
+            }, timeStampConverter.fromTimeStamp(duration.getText().toString()));
             timeDurationPickerDialog.show();
         });
 
         // TODO: Add new timer to database
-        button = findViewById(R.id.create_button);
-        button.setOnClickListener(view -> {
+        createTimerButton = findViewById(R.id.create_button);
+        createTimerButton.setOnClickListener(view -> {
             Log.d(TAG, "Create new Timer, add it to the end of current list");
-            String task_str = task.getText().toString().trim();
+            String task_str = taskName.getText().toString().trim();
 
             if (!TextUtils.isEmpty(task_str)) {
-                timers.add(new Timer(task_str, duration.getText().toString()));
-//              timers.add(0, new Timer(task.getText().toString(), duration.getText().toString()));
+                Timer timer = new Timer(task_str, duration.getText().toString());
+                timerRepository.insertTask(timer);
+//                timers.add(new Timer(task_str, duration.getText().toString()));
+//                timers.add(0, new Timer(taskName.getText().toString(), duration.getText().toString()));
                 startActivity(new Intent(CreateTimer.this, MainActivity.class));
             }
 
             if (TextUtils.isEmpty(task_str))
-                task.setError("The item cannot be empty");
+                taskName.setError("The item cannot be empty");
         });
-
     }
 }

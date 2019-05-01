@@ -19,7 +19,7 @@ public interface DaoAccess {
     Long insertTask(Timer timer);
 
 
-    @Query("SELECT * FROM Timer WHERE finished = 0")
+    @Query("SELECT * FROM Timer WHERE finished = 0 AND running = 0")
     LiveData<List<Timer>> scheduledTimers();
 
     @Query("SELECT * FROM Timer WHERE finished = 1")
@@ -32,12 +32,15 @@ public interface DaoAccess {
 //    @Query("SELECT * FROM Timer WHERE id =:taskId")
 //    LiveData<Timer> getTask(int taskId);
 
+    @Query("SELECT * FROM Timer WHERE running = 1")
+    Timer getRunningTimer();
+
 
     @Update
-    void updateTask(Timer note);
+    void updateTimer(Timer timer);
 
 
     @Delete
-    void deleteTask(Timer note);
+    void deleteTimer(Timer timer);
 
 }

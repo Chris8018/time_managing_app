@@ -15,33 +15,37 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.timemanagingapp.R;
 import com.example.timemanagingapp.adapter.TimersAdapter;
 import com.example.timemanagingapp.model.Timer;
+import com.example.timemanagingapp.repo.TimerRepository;
 import com.example.timemanagingapp.util.TimeStampConverter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TimersAdapter.ListItemListener {
 
     private static final String TAG = "MainActivity";
 
-    FloatingActionButton add_timer_button;
+    private FloatingActionButton add_timer_button;
 
     Timer current_task;
 
     // TODO: global in this class or local to a function
-    RecyclerView recyclerView;
-    TimersAdapter timerAdapter;
+    private RecyclerView recyclerView;
+    private TimersAdapter timerAdapter;
+
+    private TimerRepository timerRepository;
 
     // TODO: fix this when start implement database
-    public static List<Timer> timers = new ArrayList<>();
+//    public static List<Timer> timers = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         // TODO: Replace list with database
         // TODO: Implement adding timer activity
@@ -54,62 +58,122 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize posts
 
-        recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        init();
+
+//        recyclerView = findViewById(R.id.recycler_view);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerView.setAdapter(new TimersAdapter(timers));
 
-        timerAdapter = new TimersAdapter(new TimersAdapter.ListItemListener() {
-            @Override
-            public void onStartClick(int position) {
-                if (current_task == null) {
-                    current_task = timerAdapter.removeAt(position);
-                    TextView current_task_name = findViewById(R.id.current_task_name);
-                    TextView current_task_duration = findViewById(R.id.current_task_duration);
+//        timerAdapter = new TimersAdapter(new TimersAdapter.ListItemListener() {
+//            @Override
+//            public void onStartClick(int position) {
+//                if (current_task == null) {
+//                    current_task = timerAdapter.removeAt(position);
+//                    TextView current_task_name = findViewById(R.id.current_task_name);
+//                    TextView current_task_duration = findViewById(R.id.current_task_duration);
+//
+//                    current_task_name.setText(current_task.getTaskName());
+//                    current_task_duration.setText(current_task.getDuration());
+//                    TimeStampConverter timeStampConverter = new TimeStampConverter();
+//
+//                    // TODO: need some change to redraw when come back from different activity
+//                    new CountDownTimer(timeStampConverter.fromTimeStamp(current_task.getDuration()),
+//                            1000) {
+//
+//                        @Override
+//                        public void onTick(long millisUntilFinished) {
+//                            current_task_duration.setText(
+//                                    timeStampConverter.toTimeStamp(millisUntilFinished));
+//                        }
+//
+//                        @Override
+//                        public void onFinish() {
+//                            Toast.makeText(MainActivity.this,
+//                                    "Finish Timer", Toast.LENGTH_SHORT).show();
+//                            current_task_name.setText("");
+//                            current_task_duration.setText("00:00:00");
+//                            current_task = null;
+//                        }
+//                    }.start();
+//                } else
+//                    Toast.makeText(MainActivity.this,
+//                            "A timer is running", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onDeleteClick(int position) {
+//                Toast.makeText(MainActivity.this,
+//                        "Delete " + timers.get(position).getTaskName(), Toast.LENGTH_SHORT).show();
+//                timerAdapter.removeAt(position);
+//            }
+//        });
+//        recyclerView.setAdapter(timerAdapter);
+//
+//        add_timer_button = findViewById(R.id.add_timer_button);
+//        add_timer_button.setOnClickListener(view -> {
+//            Log.d(TAG, "Add timer button is clicked");
+//            startActivity(new Intent(MainActivity.this, CreateTimer.class));
+//        });
+    }
 
-                    current_task_name.setText(current_task.getTaskName());
-                    current_task_duration.setText(current_task.getDuration());
-                    TimeStampConverter timeStampConverter = new TimeStampConverter();
+    private void init() {
+        // TODO: initialize main activity
+        timerRepository = new TimerRepository(getApplicationContext());
 
-                    // TODO: need some change to redraw when come back from different activity
-                    new CountDownTimer(timeStampConverter.fromTimeStamp(current_task.getDuration()),
-                            1000) {
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-                        @Override
-                        public void onTick(long millisUntilFinished) {
-                            current_task_duration.setText(
-                                    timeStampConverter.toTimeStamp(millisUntilFinished));
-                        }
-
-                        @Override
-                        public void onFinish() {
-                            Toast.makeText(MainActivity.this,
-                                    "Finish Timer", Toast.LENGTH_SHORT).show();
-                            current_task_name.setText("");
-                            current_task_duration.setText("00:00:00");
-                            current_task = null;
-                        }
-                    }.start();
-                } else
-                    Toast.makeText(MainActivity.this,
-                            "A timer is running", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onDeleteClick(int position) {
-                Toast.makeText(MainActivity.this,
-                        "Delete " + timers.get(position).getTaskName(), Toast.LENGTH_SHORT).show();
-                timerAdapter.removeAt(position);
-            }
-        });
-        recyclerView.setAdapter(timerAdapter);
+        // TODO: add swipe left and right listener
 
         add_timer_button = findViewById(R.id.add_timer_button);
         add_timer_button.setOnClickListener(view -> {
-            Log.d(TAG, "Add timer button is clicked");
-            startActivity(new Intent(MainActivity.this, CreateTimer.class));
+            Intent addTimer = new Intent(MainActivity.this, CreateTimer.class);
+            startActivity(addTimer);
         });
+
+        timerRepository.getScheduledTimers().observe(this, timers -> {
+            timerAdapter = new TimersAdapter(this, timers);
+            recyclerView.setAdapter(timerAdapter);
+        });
+
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onStartClick(int position) {
+        // code
+    }
+
+    @Override
+    public void onDeleteClick(int position) {
+        // code
+    }
+
+    private void updateGUI() {
+        // TODO
+    }
 }

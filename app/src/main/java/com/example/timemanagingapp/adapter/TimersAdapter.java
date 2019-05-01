@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.timemanagingapp.R;
 import com.example.timemanagingapp.model.Timer;
 
-import static com.example.timemanagingapp.ui.MainActivity.timers;
+import java.util.List;
+
+//import static com.example.timemanagingapp.ui.MainActivity.timers;
 
 public class TimersAdapter extends RecyclerView.Adapter<TimersAdapter.TimerHolder> {
 
@@ -21,20 +23,27 @@ public class TimersAdapter extends RecyclerView.Adapter<TimersAdapter.TimerHolde
 //    List<Timer> timers;
 
     private ListItemListener listItemListener;
+    private List<Timer> timers;
 
 //    List<Timer> timers;
 
 //    public TimersAdapter() {
 //        Log.d(TAG, "Start TimersAdapter without arg");
 //    }
-    public TimersAdapter(/*List<Timer> timers, */ListItemListener listItemListener) {
-        Log.d(TAG, "Start TimersAdapter with ListItemListener");
-        this.listItemListener = listItemListener;
-    }
+//    public TimersAdapter(ListItemListener listItemListener) {
+//        Log.d(TAG, "Start TimersAdapter with ListItemListener");
+//        this.listItemListener = listItemListener;
+//    }
 
 //    public TimersAdapter(List<Timer> timers) {
 //        this.timers = timers;
 //    }
+
+    public TimersAdapter(ListItemListener listItemListener, List<Timer> timers) {
+        // TODO: implement
+        this.listItemListener = listItemListener;
+        this.timers = timers;
+    }
 
     @NonNull
     @Override
@@ -98,7 +107,7 @@ public class TimersAdapter extends RecyclerView.Adapter<TimersAdapter.TimerHolde
         // TODO: Add click, hold, swipe left, right events for this view holder
         public TimerHolder(@NonNull View itemView) {
             super(itemView);
-            task_name = itemView.findViewById(R.id.task);
+            task_name = itemView.findViewById(R.id.task_name);
             duration = itemView.findViewById(R.id.duration);
             delete_button = itemView.findViewById(R.id.delete_button);
             start_button = itemView.findViewById(R.id.start_button);

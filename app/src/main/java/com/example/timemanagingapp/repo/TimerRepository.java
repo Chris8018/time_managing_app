@@ -29,21 +29,25 @@ public class TimerRepository {
         new Thread(() -> timerDatabase.daoAccess().insertTask(timer)).start();
     }
 
-    public void updateTimer() {
-        // TODO
-    }
-
-    public void deleteTimer() {
-        // TODO
-    }
-
     public LiveData<List<Timer>> getScheduledTimers() {
         // TODO
         return null;
     }
 
-    public LiveData<List<Timer>> getTimers() {
+    public LiveData<List<Timer>> getFinishedTimers() {
         // TODO
         return null;
+    }
+
+    public void updateTimer(final Timer timer) {
+        new Thread(() -> timerDatabase.daoAccess().updateTimer(timer));
+    }
+
+    public void deleteTimer(final Timer timer) {
+        new Thread(() -> timerDatabase.daoAccess().deleteTimer(timer));
+    }
+
+    public void nukeTable() {
+        new Thread(() -> timerDatabase.clearAllTables()).start();
     }
 }
