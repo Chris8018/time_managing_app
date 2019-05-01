@@ -1,4 +1,4 @@
-package com.example.timemanagingapp.ui;
+package com.tvt11.timemanagingapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,15 +11,15 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.timemanagingapp.R;
+import com.tvt11.timemanagingapp.R;
 
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
-//import static com.example.timemanagingapp.ui.MainActivity.timers;
+//import static com.tvt11.timemanagingapp.ui.MainActivity.timers;
 
-import com.example.timemanagingapp.model.Timer;
-import com.example.timemanagingapp.repo.TimerRepository;
-import com.example.timemanagingapp.util.TimeStampConverter;
+import com.tvt11.timemanagingapp.model.Timer;
+import com.tvt11.timemanagingapp.repo.TimerRepository;
+import com.tvt11.timemanagingapp.util.TimeStampConverter;
 
 public class CreateTimer extends AppCompatActivity {
 

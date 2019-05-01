@@ -1,6 +1,5 @@
-package com.example.timemanagingapp.adapter;
+package com.tvt11.timemanagingapp.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +8,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.timemanagingapp.R;
-import com.example.timemanagingapp.model.Timer;
+import com.tvt11.timemanagingapp.R;
+import com.tvt11.timemanagingapp.model.Timer;
 
 import java.util.List;
 
-//import static com.example.timemanagingapp.ui.MainActivity.timers;
+//import static com.tvt11.timemanagingapp.ui.MainActivity.timers;
 
 public class TimersAdapter extends RecyclerView.Adapter<TimersAdapter.TimerHolder> {
 

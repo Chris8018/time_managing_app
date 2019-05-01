@@ -1,26 +1,16 @@
-package com.example.timemanagingapp.ui;
+package com.tvt11.timemanagingapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.timemanagingapp.R;
-import com.example.timemanagingapp.adapter.TimersAdapter;
-import com.example.timemanagingapp.model.Timer;
-import com.example.timemanagingapp.repo.TimerRepository;
-import com.example.timemanagingapp.util.TimeStampConverter;
+import com.tvt11.timemanagingapp.R;
+import com.tvt11.timemanagingapp.adapter.TimersAdapter;
+import com.tvt11.timemanagingapp.repo.TimerRepository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements TimersAdapter.ListItemListener {
 

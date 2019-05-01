@@ -1,4 +1,4 @@
-package com.example.timemanagingapp;
+package com.tvt11.timemanagingapp;
 
 import android.content.Context;
 
@@ -22,7 +22,7 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.timemanagingapp", appContext.getPackageName());
+        assertEquals("com.tvt11.timemanagingapp", appContext.getPackageName());
     }
 
     @Test

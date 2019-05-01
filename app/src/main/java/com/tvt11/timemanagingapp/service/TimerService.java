@@ -1,4 +1,4 @@
-package com.example.timemanagingapp.service;
+package com.tvt11.timemanagingapp.service;
 
 import android.app.Service;
 import android.content.Intent;

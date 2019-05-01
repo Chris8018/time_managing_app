@@ -1,4 +1,4 @@
-package com.example.timemanagingapp;
+package com.tvt11.timemanagingapp;
 
 import org.junit.Test;
 

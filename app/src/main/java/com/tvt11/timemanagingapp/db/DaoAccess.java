@@ -1,4 +1,4 @@
-package com.example.timemanagingapp.db;
+package com.tvt11.timemanagingapp.db;
 
 
 import androidx.lifecycle.LiveData;
@@ -8,7 +8,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.timemanagingapp.model.Timer;
+import com.tvt11.timemanagingapp.model.Timer;
 
 import java.util.List;
 
