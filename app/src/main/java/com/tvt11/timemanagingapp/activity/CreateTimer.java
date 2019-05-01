@@ -1,4 +1,4 @@
-package com.tvt11.timemanagingapp.ui;
+package com.tvt11.timemanagingapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;

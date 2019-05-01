@@ -36,12 +36,16 @@ public class TimerRepository {
         return timerDatabase.daoAccess().finishedTimers();
     }
 
+    public LiveData<Timer> getRunningTimer() {
+        return timerDatabase.daoAccess().getRunningTimer();
+    }
+
     public void updateTimer(final Timer timer) {
-        new Thread(() -> timerDatabase.daoAccess().updateTimer(timer));
+        new Thread(() -> timerDatabase.daoAccess().updateTimer(timer)).start();
     }
 
     public void deleteTimer(final Timer timer) {
-        new Thread(() -> timerDatabase.daoAccess().deleteTimer(timer));
+        new Thread(() -> timerDatabase.daoAccess().deleteTimer(timer)).start();
     }
 
     public void nukeTable() {

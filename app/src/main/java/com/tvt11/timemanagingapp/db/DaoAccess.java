@@ -28,12 +28,11 @@ public interface DaoAccess {
     @Query("SELECT * FROM Timer")
     LiveData<List<Timer>> allTimers();
 
-
 //    @Query("SELECT * FROM Timer WHERE id =:taskId")
 //    LiveData<Timer> getTask(int taskId);
 
-    @Query("SELECT * FROM Timer WHERE running = 1")
-    Timer getRunningTimer();
+    @Query("SELECT * FROM Timer WHERE running = 1 LIMIT 1")
+    LiveData<Timer> getRunningTimer();
 
 
     @Update

@@ -39,7 +39,6 @@ public class TimersAdapter extends RecyclerView.Adapter<TimersAdapter.TimerHolde
 //    }
 
     public TimersAdapter(ListItemListener listItemListener, List<Timer> timers) {
-        // TODO: implement
         this.listItemListener = listItemListener;
         this.timers = timers;
     }
@@ -92,6 +91,10 @@ public class TimersAdapter extends RecyclerView.Adapter<TimersAdapter.TimerHolde
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, timers.size());
         return task;
+    }
+
+    public Timer getAt(int position) {
+        return timers.get(position);
     }
 
     class TimerHolder extends RecyclerView.ViewHolder {

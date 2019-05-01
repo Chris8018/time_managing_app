@@ -34,11 +34,11 @@
             tools:text="DURATION" />
 
         <TextView
-            android:id="@+id/stop_button"
+            android:id="@+id/cancel_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/button_border"
-            android:text="STOP"
+            android:text="CANCEL"
             android:textAlignment="center"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/finish_button"
@@ -51,7 +51,7 @@
             android:background="@drawable/button_border"
             android:text="FINISH"
             android:textAlignment="center"
-            app:layout_constraintLeft_toRightOf="@id/stop_button"
+            app:layout_constraintLeft_toRightOf="@id/cancel_button"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/current_task_duration" />
 
