@@ -34,7 +34,7 @@ public class CreateTimer extends AppCompatActivity {
     private TimerRepository timerRepository;
 
     private TimeDurationPickerDialog timeDurationPickerDialog;
-    private TimeStampConverter timeStampConverter;
+//    private TimeStampConverter timeStampConverter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,7 +81,7 @@ public class CreateTimer extends AppCompatActivity {
     public void init() {
         timerRepository = new TimerRepository(getApplicationContext());
 
-        timeStampConverter = new TimeStampConverter();
+//        timeStampConverter = new TimeStampConverter();
 
         taskName = findViewById(R.id.task_name);
 
@@ -91,8 +91,8 @@ public class CreateTimer extends AppCompatActivity {
         duration.setOnClickListener(view -> {
             timeDurationPickerDialog = new TimeDurationPickerDialog(
                     CreateTimer.this, (timePicker, time) -> {
-                duration.setText(timeStampConverter.toTimeStamp(time));
-            }, timeStampConverter.fromTimeStamp(duration.getText().toString()));
+                duration.setText(TimeStampConverter.toTimeStamp(time));
+            }, TimeStampConverter.fromTimeStamp(duration.getText().toString()));
             timeDurationPickerDialog.show();
         });
 

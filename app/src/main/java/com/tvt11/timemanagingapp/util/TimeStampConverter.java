@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TimeStampConverter {
 
-    public String toTimeStamp(long time) {
+    public static String toTimeStamp(long time) {
 
         int time_in_second = (int) time / 1000;
         int h = time_in_second / (60 * 60);
@@ -21,7 +21,7 @@ public class TimeStampConverter {
         return hours + ":" + minutes + ":" + seconds;
     }
 
-    public long fromTimeStamp(String timeStamp) {
+    public static long fromTimeStamp(String timeStamp) {
 
         List<Integer> time = new ArrayList<>();
         for (String s : timeStamp.split(":")) {

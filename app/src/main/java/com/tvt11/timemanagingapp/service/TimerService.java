@@ -21,7 +21,7 @@ public class TimerService extends Service {
 
     TimerRepository timerRepository;
 
-    TimeStampConverter timeStampConverter = new TimeStampConverter();
+//    TimeStampConverter timeStampConverter = new TimeStampConverter();
 
     @Override
     public void onCreate() {
