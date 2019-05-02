@@ -1,6 +1,7 @@
 package com.tvt11.timemanagingapp.repo;
 
 import android.content.Context;
+import android.os.HandlerThread;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Room;
@@ -38,6 +39,10 @@ public class TimerRepository {
 
     public LiveData<Timer> getRunningTimer() {
         return timerDatabase.daoAccess().getRunningTimer();
+    }
+
+    public LiveData<Integer> getNumberOfRunningTimers() {
+        return timerDatabase.daoAccess().getNumberOfRunningTimers();
     }
 
     public void updateTimer(final Timer timer) {

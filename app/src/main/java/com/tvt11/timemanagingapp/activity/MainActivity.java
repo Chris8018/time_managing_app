@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -31,8 +32,10 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
     private TextView cancel_button;
     private TextView finish_button;
 
-    private TimeStampConverter timeStampConverter = new TimeStampConverter();
-    ;
+//    private TimeStampConverter timeStampConverter = new TimeStampConverter();
+//    private SharedPreferences sharedPreferences;
+//
+//    private static final String preferenceName = "countdownTimer";
 
 //    Timer current_task;
 
@@ -46,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
     private BroadcastReceiver br = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            updateRunningTimer(intent);
+            //code
         }
     };
 
@@ -132,6 +135,8 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
 
         timerRepository = new TimerRepository(getApplicationContext());
 
+//        sharedPreferences = getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -140,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
         timerRepository.getScheduledTimers().observe(this, timers -> {
             timerAdapter = new TimersAdapter(this, timers);
             recyclerView.setAdapter(timerAdapter);
-            Log.d(TAG, "Timer database size: " + timers.size());
+//            Log.d(TAG, "Timer database size: " + timers.size());
         });
 
         add_timer_button = findViewById(R.id.add_timer_button);
@@ -155,11 +160,25 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
         cancel_button = findViewById(R.id.cancel_button);
         cancel_button.setOnClickListener(view -> {
             // TODO: implement
+            /*
+            stop service
+            set the timer running to false
+            set sharedPref cdt running to false
+            put the timer back to recycler view.
+             */
+//            Timer timer = new Timer ("Add this timer to top", "00:10:00");
+//            timerRepository.insertTask(timer);
         });
 
         finish_button = findViewById(R.id.finish_button);
         finish_button.setOnClickListener(view -> {
             // TODO: implement
+            /*
+            stop service
+            set timer db running to false
+            set timer sharedPref running to false
+            set timer db finished to true
+             */
         });
 
     }
@@ -167,31 +186,31 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(br, new IntentFilter(TimerService.COUNTDOWN_BR));
-        Log.i(TAG, "Registered broadcast receiver");
+//        registerReceiver(br, new IntentFilter(TimerService.COUNTDOWN_BR));
+//        Log.i(TAG, "Registered broadcast receiver");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(br);
-        Log.i(TAG, "Unregistered broadcast receiver");
+//        unregisterReceiver(br);
+//        Log.i(TAG, "Unregistered broadcast receiver");
     }
 
     @Override
     protected void onStop() {
-        try {
-            unregisterReceiver(br);
-        } catch (Exception e) {
-            // code
-        }
+//        try {
+//            unregisterReceiver(br);
+//        } catch (Exception e) {
+//            Log.e(TAG, "Error with TimerService when app stop: " + e);
+//        }
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        stopService(new Intent(this, TimerService.class));
-        Log.i(TAG, "Stopped service");
+//        stopService(new Intent(this, TimerService.class));
+//        Log.i(TAG, "Stopped service");
         super.onDestroy();
     }
 
@@ -200,16 +219,16 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
         super.onStart();
     }
 
-    private void updateRunningTimer(Intent intent) {
-        // TODO: if intent has countdown and timer is running, dealing with finished timer
-        Log.i(TAG, "Receive time service");
-        long timeTilFinish = intent.getLongExtra("countdown", 0);
-        current_task_duration.setText(timeStampConverter.toTimeStamp(timeTilFinish));
-    }
+//    private void updateRunningTimer(Intent intent) {
+//        // TODO: if intent has countdown and timer is running, dealing with finished timer
+//        Log.i(TAG, "Receive time service");
+//        long timeTilFinish = intent.getLongExtra("countdown", 0);
+//        current_task_duration.setText(timeStampConverter.toTimeStamp(timeTilFinish));
+//    }
 
     @Override
     public void onStartClick(int position) {
-        // TODO: need change
+        // TODO: implement
         /*
         check if any timer is running
         if no timer is running
@@ -219,24 +238,25 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
         , add extra to service to tell how long to countdown
          */
 
-        if (timerRepository.getRunningTimer().getValue() == null) {
-            Log.d(TAG, "Start timer service");
-            Timer timer = timerAdapter.removeAt(position);
-            timer.setRunning(true);
-            timerRepository.updateTimer(timer);
-
-            String name = timer.getTaskName();
-            String time = timer.getDuration();
-
-            current_task_name.setText(name);
-            current_task_duration.setText(time);
-
-            Intent timerService = new Intent(this, TimerService.class);
-            // put extra
-            timerService.putExtra("duration", timeStampConverter.fromTimeStamp(time));
-            startService(timerService);
-        } else
-            Log.d(TAG, "A timer is running");
+//        if (timerRepository.getNumberOfRunningTimers().getValue() == 0) {
+//            Log.d(TAG, "Start timer service");
+////            Timer timer = timerAdapter.removeAt(position);
+//            Timer timer = timerAdapter.getAt(position);
+//            timer.setRunning(true);
+//            timerRepository.updateTimer(timer);
+//
+//            String name = timer.getTaskName();
+//            String time = timer.getDuration();
+//
+////            current_task_name.setText(name);
+////            current_task_duration.setText(time);
+////
+////            Intent timerService = new Intent(this, TimerService.class);
+////            // put extra
+////            timerService.putExtra("duration", timeStampConverter.fromTimeStamp(time));
+////            startService(timerService);
+//        } else
+//            Log.i(TAG, "A timer is running so another timer cannot be start");
     }
 
     @Override

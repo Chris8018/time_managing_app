@@ -34,6 +34,9 @@ public interface DaoAccess {
     @Query("SELECT * FROM Timer WHERE running = 1 LIMIT 1")
     LiveData<Timer> getRunningTimer();
 
+    @Query("SELECT COUNT(running) FROM Timer WHERE running = 1")
+    LiveData<Integer> getNumberOfRunningTimers();
+
 
     @Update
     void updateTimer(Timer timer);
