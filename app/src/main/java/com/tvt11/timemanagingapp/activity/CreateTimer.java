@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
 
 import com.tvt11.timemanagingapp.R;
 
@@ -40,6 +43,10 @@ public class CreateTimer extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_timer);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.create_timer_activity);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         init();
 //
@@ -113,5 +120,14 @@ public class CreateTimer extends AppCompatActivity {
             if (TextUtils.isEmpty(task_str))
                 taskName.setError("The item cannot be empty");
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            NavUtils.navigateUpFromSameTask(this);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

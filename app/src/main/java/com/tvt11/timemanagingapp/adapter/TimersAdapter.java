@@ -3,6 +3,7 @@ package com.tvt11.timemanagingapp.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -103,8 +104,8 @@ public class TimersAdapter extends RecyclerView.Adapter<TimersAdapter.TimerHolde
 
         private TextView task_name;
         private TextView duration;
-        private TextView delete_button;
-        private TextView start_button;
+        private Button delete_button;
+        private Button start_button;
 
         // TODO: add hold, swipe left, right events for this view holder
         public TimerHolder(@NonNull View itemView) {

@@ -1,25 +1,22 @@
 package com.tvt11.timemanagingapp.activity;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tvt11.timemanagingapp.R;
 import com.tvt11.timemanagingapp.adapter.TimersAdapter;
-import com.tvt11.timemanagingapp.model.Timer;
 import com.tvt11.timemanagingapp.repo.TimerRepository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.tvt11.timemanagingapp.service.TimerService;
-import com.tvt11.timemanagingapp.util.TimeStampConverter;
+//import com.tvt11.timemanagingapp.service.TimerService;
+
 
 public class MainActivity extends AppCompatActivity implements TimersAdapter.ListItemListener {
 
@@ -29,8 +26,8 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
 
     private TextView current_task_name;
     private TextView current_task_duration;
-    private TextView cancel_button;
-    private TextView finish_button;
+    private Button cancel_button;
+    private Button finish_button;
 
 //    private TimeStampConverter timeStampConverter = new TimeStampConverter();
 //    private SharedPreferences sharedPreferences;
@@ -46,17 +43,20 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
     private TimerRepository timerRepository;
 
     //    public static List<Timer> timers = new ArrayList<>();
-    private BroadcastReceiver br = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //code
-        }
-    };
+//    private BroadcastReceiver br = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            //code
+//        }
+//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.main_activity);
 
         // TODO: Replace list with database
         // TODO: Implement adding timer activity
@@ -154,8 +154,8 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
             startActivity(addTimer);
         });
 
-        current_task_name = findViewById(R.id.current_task_name);
-        current_task_duration = findViewById(R.id.current_task_duration);
+        current_task_name = findViewById(R.id.current_name);
+        current_task_duration = findViewById(R.id.current_duration);
 
         cancel_button = findViewById(R.id.cancel_button);
         cancel_button.setOnClickListener(view -> {
@@ -212,11 +212,6 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
 //        stopService(new Intent(this, TimerService.class));
 //        Log.i(TAG, "Stopped service");
         super.onDestroy();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
     }
 
 //    private void updateRunningTimer(Intent intent) {

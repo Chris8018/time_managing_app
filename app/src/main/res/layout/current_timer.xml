@@ -12,48 +12,54 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/current_task_name"
+            android:id="@+id/current_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="No Task"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="No Timer"
             android:textAlignment="center"
+            android:textSize="@dimen/scheduled_timer_text"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="TASK NAME" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/current_task_duration"
+            android:id="@+id/current_duration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="00:00:00"
             android:textAlignment="center"
+            android:textSize="@dimen/running_timer"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/current_task_name"
-            tools:text="DURATION" />
+            app:layout_constraintTop_toBottomOf="@+id/current_name" />
 
-        <TextView
+        <Button
             android:id="@+id/cancel_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_border"
+            android:background="#D32F2F"
             android:text="CANCEL"
             android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/button_size"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/finish_button"
-            app:layout_constraintTop_toBottomOf="@id/current_task_duration" />
+            app:layout_constraintTop_toBottomOf="@id/current_duration" />
 
-        <TextView
+        <Button
             android:id="@+id/finish_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_border"
+            android:background="#2E7D32"
             android:text="FINISH"
             android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/button_size"
             app:layout_constraintLeft_toRightOf="@id/cancel_button"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/current_task_duration" />
+            app:layout_constraintTop_toBottomOf="@id/current_duration" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
