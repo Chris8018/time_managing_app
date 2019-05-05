@@ -17,7 +17,7 @@ public class Timer {
     private String duration;
 
     @ColumnInfo(name = "date")
-    private String date;
+    private String date = "";
 
     @ColumnInfo(name = "finished")
     private boolean finished = false;
@@ -25,6 +25,7 @@ public class Timer {
     @ColumnInfo(name = "running")
     private boolean running = false;
 
+    @ColumnInfo(name = "description")
     private String description;
 
     public Timer(String taskName, String duration) {

@@ -1,15 +1,19 @@
 package com.tvt11.timemanagingapp.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tvt11.timemanagingapp.R;
+import com.tvt11.timemanagingapp.activity.MainActivity;
 import com.tvt11.timemanagingapp.model.Timer;
 
 import java.util.List;
@@ -98,7 +102,7 @@ public class TimersAdapter extends RecyclerView.Adapter<TimersAdapter.TimerHolde
         return timers.get(position);
     }
 
-    class TimerHolder extends RecyclerView.ViewHolder {
+    class TimerHolder extends RecyclerView.ViewHolder /*implements View.OnLongClickListener*/ {
 
         private static final String TAG = "TimerHolder";
 
@@ -115,7 +119,18 @@ public class TimersAdapter extends RecyclerView.Adapter<TimersAdapter.TimerHolde
             delete_button = itemView.findViewById(R.id.delete_button);
             start_button = itemView.findViewById(R.id.start_button);
 
+            itemView.setOnLongClickListener(view -> {
+                Log.d(TAG, "Long click fire");
+                return true;
+            });
+
         }
+
+//        @Override
+//        public boolean onLongClick(View v) {
+//            Log.d(TAG, "Long click fire");
+//            return true;
+//        }
     }
 
     public interface ListItemListener {

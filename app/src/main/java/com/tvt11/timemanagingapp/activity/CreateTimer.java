@@ -111,6 +111,7 @@ public class CreateTimer extends AppCompatActivity {
 
             if (!TextUtils.isEmpty(task_str)) {
                 Timer timer = new Timer(task_str, duration.getText().toString());
+                timer.setDescription(desc.getText().toString());
                 timerRepository.insertTask(timer);
 //                timers.add(new Timer(task_str, duration.getText().toString()));
 //                timers.add(0, new Timer(taskName.getText().toString(), duration.getText().toString()));
