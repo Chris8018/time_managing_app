@@ -30,11 +30,12 @@ public class TimerRepository {
     }
 
     public LiveData<List<Timer>> getScheduledTimers() {
-        // TODO: implement Async
         return timerDatabase.daoAccess().scheduledTimers();
     }
 
-    public LiveData<List<Timer>> getFinishedTimers() {
+    // TODO: get unique date
+
+    public List<Timer> getFinishedTimers() {
         // TODO: implement Async
         return timerDatabase.daoAccess().finishedTimers();
     }
@@ -76,6 +77,16 @@ public class TimerRepository {
             Timer timer = getByID(id);
             timer.setRunning(false);
             timer.setFinished(true);
+            updateTimer(timer);
+        }).start();
+    }
+
+    public void setTimerFinished(int id, String date) {
+        new Thread(() -> {
+            Timer timer = getByID(id);
+            timer.setRunning(false);
+            timer.setFinished(true);
+            timer.setDate(date);
             updateTimer(timer);
         }).start();
     }

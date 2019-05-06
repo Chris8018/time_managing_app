@@ -48,16 +48,10 @@
             android:layout_height="wrap_content"
             android:background="?attr/editTextBackground"
             android:gravity="center_vertical"
-            android:text="00:00:10"
             android:textAppearance="?android:attr/textAppearanceMediumInverse"
             android:textColor="?attr/editTextColor"
-            android:textSize="20sp" />
-
-        <!--<com.google.android.material.textfield.TextInputEditText-->
-        <!--android:id="@+id/task_duration"-->
-        <!--android:layout_width="90dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="00:00:00" />-->
+            android:textSize="20sp"
+            tools:text="DURATION" />
     </com.google.android.material.textfield.TextInputLayout>
 
 

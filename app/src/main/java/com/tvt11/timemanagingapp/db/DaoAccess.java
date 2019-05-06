@@ -23,7 +23,9 @@ public interface DaoAccess {
     LiveData<List<Timer>> scheduledTimers();
 
     @Query("SELECT * FROM Timer WHERE finished = 1")
-    LiveData<List<Timer>> finishedTimers();
+    List<Timer> finishedTimers();
+
+    // TODO: query get unique date
 
     @Query("SELECT * FROM Timer WHERE id = :id")
     Timer getByID(int id);

@@ -1,6 +1,9 @@
 package com.tvt11.timemanagingapp.activity;
 
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -21,8 +24,12 @@ import com.tvt11.timemanagingapp.model.Timer;
 import com.tvt11.timemanagingapp.repo.TimerRepository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tvt11.timemanagingapp.util.AlarmControl;
+import com.tvt11.timemanagingapp.util.DateConverter;
 import com.tvt11.timemanagingapp.util.PrefUtil;
 import com.tvt11.timemanagingapp.util.TimeConverter;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements TimersAdapter.ListItemListener {
 
@@ -94,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
 
         finish_button = findViewById(R.id.finish_button);
         finish_button.setOnClickListener(view -> {
-            // TODO: do sth with sharedPref
             if (timerState == TimerState.Running) {
                 cdt.cancel();
                 onTimerFinished();
@@ -123,11 +129,11 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
         if (timerState == TimerState.Running) {
             cdt.cancel();
 
-            long currentTime = AlarmControl.getCurrentTime();
+            long currentTime = Calendar.getInstance().getTimeInMillis();
 
             long wakeUpTime = AlarmControl.setAlarm(this, currentTime, timeTilFinish);
 
-            // TODO: start background timer and show notification
+            // TODO: show notification
         }
 
         PrefUtil.setTimerId(timerID, this);
@@ -159,15 +165,6 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
 
         current_task_name.setText(timerName);
         current_task_duration.setText(timeStr);
-
-//        if (timerState == TimerState.Running)
-//            current_task_duration.setText(
-//                    TimeConverter.toTimeStamp(timeTilFinish)
-//            );
-//        else {
-//            current_task_name.setText("No Timer");
-//            current_task_duration.setText("00:00:00");
-//        }
     }
 
     private void startTimer() {
@@ -190,12 +187,17 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
     }
 
     private void onTimerFinished() {
-        // TODO: do sth with sharedPref, save date
         timerState = TimerState.NoTimer;
 
-        timerRepository.setTimerFinished(timerID);
+        Date currentDate = Calendar.getInstance().getTime();
+
+        timerRepository.setTimerFinished(timerID, DateConverter.fromDate(currentDate));
 
         updateTimerGUI();
+
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+        r.play();
     }
 
     @Override
@@ -222,6 +224,11 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
     }
 
     @Override
+    public void onCardLongClick(int position) {
+        // TODO: start edit activity
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -236,7 +243,14 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_contact) {
+            // TODO: go to contact activity
+            return true;
+        } else if (id == R.id.action_chart) {
+            // TODO: go to chart activity
+            return true;
+        } else if (id == R.id.action_delete_all) {
+            // TODO: delete all scheduled timer
             return true;
         }
 

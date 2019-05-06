@@ -3,8 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.tvt11.timemanagingapp.activity.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_contact"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="ifRoom" />
+        android:title="@string/action_contact"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_contact_mail_black_24dp"/>
+    <item
+        android:id="@+id/action_chart"
+        android:orderInCategory="100"
+        android:title="@string/action_chart"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_insert_chart_black_24dp"/>
+    <item
+        android:id="@+id/action_delete_all"
+        android:orderInCategory="0"
+        android:title="@string/action_delete_all"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_delete_forever_black_24dp"/>
 </menu>

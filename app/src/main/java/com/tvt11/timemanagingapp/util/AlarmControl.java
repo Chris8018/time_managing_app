@@ -11,10 +11,6 @@ import java.util.Calendar;
 
 public class AlarmControl {
 
-    public static long getCurrentTime() {
-        return Calendar.getInstance().getTimeInMillis();
-    }
-
     public static long setAlarm(Context context, long currentTime, long timeRemain) {
         long wakeUpTime = currentTime + timeRemain;
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

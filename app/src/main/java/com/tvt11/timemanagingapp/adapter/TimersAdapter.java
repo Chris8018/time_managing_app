@@ -53,6 +53,7 @@ public class TimersAdapter extends RecyclerView.Adapter<TimersAdapter.TimerHolde
 
         holder.itemView.setOnLongClickListener(view -> {
             Log.d(TAG, "Long click fire");
+            listItemListener.onCardLongClick(position);
             return true;
         });
 
@@ -74,6 +75,10 @@ public class TimersAdapter extends RecyclerView.Adapter<TimersAdapter.TimerHolde
         return timers.get(position);
     }
 
+    public List<Timer> getAllTimer() {
+        return timers;
+    }
+
     class TimerHolder extends RecyclerView.ViewHolder {
 
         private static final String TAG = "TimerHolder";
@@ -83,18 +88,12 @@ public class TimersAdapter extends RecyclerView.Adapter<TimersAdapter.TimerHolde
         private Button delete_button;
         private Button start_button;
 
-        // TODO: add hold, swipe left, right events for this view holder
         public TimerHolder(@NonNull View itemView) {
             super(itemView);
             task_name = itemView.findViewById(R.id.task_name);
             duration = itemView.findViewById(R.id.duration);
             delete_button = itemView.findViewById(R.id.delete_button);
             start_button = itemView.findViewById(R.id.start_button);
-
-//            itemView.setOnLongClickListener(view -> {
-//                Log.d(TAG, "Long click fire");
-//                return true;
-//            });
 
         }
     }
@@ -103,6 +102,7 @@ public class TimersAdapter extends RecyclerView.Adapter<TimersAdapter.TimerHolde
 
         void onStartClick(int position);
         void onDeleteClick(int position);
+        void onCardLongClick(int position);
     }
 
 }

@@ -15,16 +15,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
 
 import com.tvt11.timemanagingapp.R;
-
-import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
-
 import com.tvt11.timemanagingapp.model.Timer;
 import com.tvt11.timemanagingapp.repo.TimerRepository;
 import com.tvt11.timemanagingapp.util.TimeConverter;
 
-public class CreateTimer extends AppCompatActivity {
+import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
+// TODO: change
+public class EditTimer extends AppCompatActivity {
 
-    private static final String TAG = "CreateTimer";
+    private static final String TAG = "EditTimer";
 
     private EditText taskName;
     private TextView duration;
@@ -36,7 +35,6 @@ public class CreateTimer extends AppCompatActivity {
 
     private TimeDurationPickerDialog timeDurationPickerDialog;
 
-    private String defaultDuration = "00:00:10";
     private String task_str;
 
     @Override
@@ -45,7 +43,7 @@ public class CreateTimer extends AppCompatActivity {
         setContentView(R.layout.create_timer);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.create_timer_activity);
+        getSupportActionBar().setTitle(R.string.edit_timer_activity);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         timerRepository = new TimerRepository(getApplicationContext());
@@ -53,8 +51,9 @@ public class CreateTimer extends AppCompatActivity {
         taskName = findViewById(R.id.task_name);
 
         duration = findViewById(R.id.task_duration);
-        duration.setText(defaultDuration);
-        duration.setOnClickListener(view -> pickDuration());
+        duration.setOnClickListener(view -> {
+            pickDuration();
+        });
 
         desc = findViewById(R.id.task_desc);
 
@@ -75,7 +74,7 @@ public class CreateTimer extends AppCompatActivity {
 
     private void pickDuration() {
         timeDurationPickerDialog = new TimeDurationPickerDialog(
-                CreateTimer.this, (timePicker, time) -> {
+                EditTimer.this, (timePicker, time) -> {
             duration.setText(TimeConverter.toTimeStamp(time));
         }, TimeConverter.fromTimeStamp(duration.getText().toString()));
         timeDurationPickerDialog.show();
@@ -85,7 +84,7 @@ public class CreateTimer extends AppCompatActivity {
         Timer timer = new Timer(task_str, duration.getText().toString());
         timer.setDescription(desc.getText().toString());
         timerRepository.insertTask(timer);
-        startActivity(new Intent(CreateTimer.this, MainActivity.class));
+        startActivity(new Intent(EditTimer.this, MainActivity.class));
     }
 
 
