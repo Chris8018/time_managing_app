@@ -22,7 +22,7 @@ import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
 import com.tvt11.timemanagingapp.model.Timer;
 import com.tvt11.timemanagingapp.repo.TimerRepository;
-import com.tvt11.timemanagingapp.util.TimeStampConverter;
+import com.tvt11.timemanagingapp.util.TimeConverter;
 
 public class CreateTimer extends AppCompatActivity {
 
@@ -37,7 +37,7 @@ public class CreateTimer extends AppCompatActivity {
     private TimerRepository timerRepository;
 
     private TimeDurationPickerDialog timeDurationPickerDialog;
-//    private TimeStampConverter timeStampConverter;
+//    private TimeConverter timeStampConverter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class CreateTimer extends AppCompatActivity {
 //        desc = findViewById(R.id.task_desc);
 //
 //        duration.setOnClickListener(view -> {
-//            TimeStampConverter timeStampConverter = new TimeStampConverter();
+//            TimeConverter timeStampConverter = new TimeConverter();
 //            timeDurationPickerDialog = new TimeDurationPickerDialog(
 //                    CreateTimer.this, (timePicker, time) -> {
 //                        duration.setText(timeStampConverter.toTimeStamp(time));
@@ -88,7 +88,7 @@ public class CreateTimer extends AppCompatActivity {
     public void init() {
         timerRepository = new TimerRepository(getApplicationContext());
 
-//        timeStampConverter = new TimeStampConverter();
+//        timeStampConverter = new TimeConverter();
 
         taskName = findViewById(R.id.task_name);
 
@@ -98,8 +98,8 @@ public class CreateTimer extends AppCompatActivity {
         duration.setOnClickListener(view -> {
             timeDurationPickerDialog = new TimeDurationPickerDialog(
                     CreateTimer.this, (timePicker, time) -> {
-                duration.setText(TimeStampConverter.toTimeStamp(time));
-            }, TimeStampConverter.fromTimeStamp(duration.getText().toString()));
+                duration.setText(TimeConverter.toTimeStamp(time));
+            }, TimeConverter.fromTimeStamp(duration.getText().toString()));
             timeDurationPickerDialog.show();
         });
 

@@ -16,7 +16,7 @@ public class Timer {
     @ColumnInfo(name = "duration")
     private String duration;
 
-    @ColumnInfo(name = "date")
+    @ColumnInfo(name = "finishedDate")
     private String date = "";
 
     @ColumnInfo(name = "finished")

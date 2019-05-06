@@ -25,12 +25,6 @@ public interface DaoAccess {
     @Query("SELECT * FROM Timer WHERE finished = 1")
     LiveData<List<Timer>> finishedTimers();
 
-    @Query("SELECT * FROM Timer")
-    LiveData<List<Timer>> allTimers();
-
-    @Query("SELECT * FROM Timer WHERE running = 1 LIMIT 1")
-    LiveData<Timer> getRunningTimer();
-
     @Query("SELECT * FROM Timer WHERE id = :id")
     Timer getByID(int id);
 

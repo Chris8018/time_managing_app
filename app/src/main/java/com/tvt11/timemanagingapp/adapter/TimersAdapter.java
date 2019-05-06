@@ -50,6 +50,12 @@ public class TimersAdapter extends RecyclerView.Adapter<TimersAdapter.TimerHolde
         holder.delete_button.setOnClickListener(view -> {
             listItemListener.onDeleteClick(position);
         });
+
+        holder.itemView.setOnLongClickListener(view -> {
+            Log.d(TAG, "Long click fire");
+            return true;
+        });
+
     }
 
     @Override
@@ -66,10 +72,6 @@ public class TimersAdapter extends RecyclerView.Adapter<TimersAdapter.TimerHolde
 
     public Timer getAt(int position) {
         return timers.get(position);
-    }
-
-    public int getIDAt(int position) {
-        return getAt(position).getId();
     }
 
     class TimerHolder extends RecyclerView.ViewHolder {
@@ -89,10 +91,10 @@ public class TimersAdapter extends RecyclerView.Adapter<TimersAdapter.TimerHolde
             delete_button = itemView.findViewById(R.id.delete_button);
             start_button = itemView.findViewById(R.id.start_button);
 
-            itemView.setOnLongClickListener(view -> {
-                Log.d(TAG, "Long click fire");
-                return true;
-            });
+//            itemView.setOnLongClickListener(view -> {
+//                Log.d(TAG, "Long click fire");
+//                return true;
+//            });
 
         }
     }
