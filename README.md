@@ -14,7 +14,7 @@ INIT plan:
 
 5. Implement chart
 
-6. Implement setting
+6. Implement setting (Not sure if this is needed)
 
 7. Implement notification
 
@@ -31,3 +31,7 @@ Revised plan:
 5. Clean up
 
 6. Write report
+
+7. Implement edit
+
+8. Implement Timer again (done)
