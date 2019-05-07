@@ -82,7 +82,7 @@ public class NotificationUtil {
                 .setContentIntent(getPendingIntentWithStack(context, MainActivity.class))
                 .setOngoing(true)
                 .addAction(0, "Cancel", cancelPendingIntent)
-                .addAction(0, "Pause", finishPendingIntent);
+                .addAction(0, "Finish", finishPendingIntent);
 
         NotificationManager nManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
