@@ -12,9 +12,9 @@ public class NotificationActionReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // TODO: implement
         switch (intent.getAction()) {
-            case AppConstants.ACTION_FINISHED:
+            case AppConstants.ACTION_FINISH:
                 break;
-            case AppConstants.ACTION_RUNNING:
+            case AppConstants.ACTION_CANCEL:
                 break;
         }
     }
