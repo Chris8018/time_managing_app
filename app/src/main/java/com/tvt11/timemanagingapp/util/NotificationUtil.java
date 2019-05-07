@@ -65,12 +65,18 @@ public class NotificationUtil {
                 context, 0, cancelIntent, PendingIntent.FLAG_UPDATE_CURRENT
         );
 
-        Intent finishIntent = new Intent(context, MainActivity.class);
+        NotificationCompat.Action cancelAction =
+                new NotificationCompat.Action(0, "Cancel", cancelPendingIntent);
+
+        Intent finishIntent = new Intent(context, NotificationActionReceiver.class);
         finishIntent.setAction(AppConstants.ACTION_FINISH);
 
         PendingIntent finishPendingIntent = PendingIntent.getBroadcast(
-                context, 0, finishIntent, PendingIntent.FLAG_UPDATE_CURRENT
+                context, 1, finishIntent, PendingIntent.FLAG_UPDATE_CURRENT
         );
+
+        NotificationCompat.Action finishAction =
+                new NotificationCompat.Action(0, "Finish", finishPendingIntent);
 
         String timerName = PrefUtil.getTimerName(context);
 
@@ -80,11 +86,11 @@ public class NotificationUtil {
                 getBasicNotificationBuilder(context, CHANNEL_NAME_TIMER);
 
         nBuilder.setContentTitle(timerName)
-                .setContentText("End at" + df.format(new Date(wakeUpTime)))
-                .setContentIntent(getPendingIntentWithStack(context, MainActivity.class))
+                .setContentText("End at " + df.format(new Date(wakeUpTime)))
+//                .setContentIntent(getPendingIntentWithStack(context, MainActivity.class))
                 .setOngoing(true)
-                .addAction(0, "Cancel", cancelPendingIntent)
-                .addAction(0, "Finish", finishPendingIntent);
+                .addAction(cancelAction)
+                .addAction(finishAction);
 
         NotificationManager nManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

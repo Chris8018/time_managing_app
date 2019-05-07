@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.util.Log;
 
 import com.tvt11.timemanagingapp.activity.MainActivity;
 import com.tvt11.timemanagingapp.repo.TimerRepository;
@@ -18,11 +19,14 @@ import java.util.Date;
 
 public class TimerFinishedReceiver extends BroadcastReceiver {
 
+    private static final String TAG = "TimerFinR";
+
     private TimerRepository timerRepository;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        NotificationUtil.showTimerStopped(context, "Finished");
+        Log.d(TAG, "A timer finished");
+        NotificationUtil.showTimerStopped(context, "Finished");
 
         timerRepository = new TimerRepository(context.getApplicationContext());
 

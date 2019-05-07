@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
 
         AlarmControl.removeAlarm(this);
 
-//        NotificationUtil.hideTimerNotification(this);
+        NotificationUtil.hideTimerNotification(this);
     }
 
     @Override
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
 
             long wakeUpTime = AlarmControl.setAlarm(this, currentTime, timeTilFinish);
 
-//            NotificationUtil.showTimerRunning(this, wakeUpTime);
+            NotificationUtil.showTimerRunning(this, wakeUpTime);
         }
 
         PrefUtil.setTimerId(timerID, this);
