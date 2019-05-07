@@ -25,6 +25,7 @@ import com.tvt11.timemanagingapp.repo.TimerRepository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tvt11.timemanagingapp.util.AlarmControl;
 import com.tvt11.timemanagingapp.util.DateConverter;
+import com.tvt11.timemanagingapp.util.NotificationUtil;
 import com.tvt11.timemanagingapp.util.PrefUtil;
 import com.tvt11.timemanagingapp.util.TimeConverter;
 
@@ -118,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
 
         AlarmControl.removeAlarm(this);
 
-        // TODO: hide notification
+//        NotificationUtil.hideTimerNotification(this);
     }
 
     @Override
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
 
             long wakeUpTime = AlarmControl.setAlarm(this, currentTime, timeTilFinish);
 
-            // TODO: show notification
+//            NotificationUtil.showTimerRunning(this, wakeUpTime);
         }
 
         PrefUtil.setTimerId(timerID, this);

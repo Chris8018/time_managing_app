@@ -7,8 +7,6 @@ import android.content.Intent;
 
 import com.tvt11.timemanagingapp.receiver.TimerFinishedReceiver;
 
-import java.util.Calendar;
-
 public class AlarmControl {
 
     public static long setAlarm(Context context, long currentTime, long timeRemain) {

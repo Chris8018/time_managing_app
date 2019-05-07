@@ -14,16 +14,18 @@ public class NotificationActionReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // TODO: implement
+        // TODO: can extent to implement STOP, PAUSE, RESUME
         switch (intent.getAction()) {
             case AppConstants.ACTION_FINISH:
                 AlarmControl.removeAlarm(context);
                 PrefUtil.setTimerState(MainActivity.TimerState.NoTimer, context);
+                // TODO Set timer finished?
                 NotificationUtil.showTimerStopped(context, "Finished");
                 break;
             case AppConstants.ACTION_CANCEL:
                 AlarmControl.removeAlarm(context);
                 PrefUtil.setTimerState(MainActivity.TimerState.NoTimer, context);
+                // TODO Set timer finished?
                 NotificationUtil.showTimerStopped(context, "Canceled");
                 break;
         }

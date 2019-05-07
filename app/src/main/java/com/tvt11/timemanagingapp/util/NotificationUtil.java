@@ -22,7 +22,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class NotificationUtil {
-    private static final String CHANNEL_ID_TIMER = "menu_timer";
+    private static final String TAG = "NotificationUtil";
+
+    private static final String CHANNEL_ID_TIMER = "timeM_app_timer";
     private static final String CHANNEL_NAME_TIMER = "Time Managing App Timer";
     private static final int TIMER_ID = 0;
 
@@ -99,6 +101,13 @@ public class NotificationUtil {
         nManager.notify(TIMER_ID, nBuilder.build());
     }
 
+    public static void hideTimerNotification(Context context) {
+        NotificationManager nManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        nManager.cancel(TIMER_ID);
+    }
+
     private static NotificationCompat.Builder getBasicNotificationBuilder(
             Context context, String channelID
     ) {
@@ -107,13 +116,6 @@ public class NotificationUtil {
                 .setAutoCancel(true)
                 .setDefaults(0);
         return nBuilder;
-    }
-
-    private static void hideTimerNotification(Context context) {
-        NotificationManager nManager =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        nManager.cancel(TIMER_ID);
     }
 
     private static <T> PendingIntent getPendingIntentWithStack(

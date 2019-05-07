@@ -10,6 +10,7 @@ import android.net.Uri;
 import com.tvt11.timemanagingapp.activity.MainActivity;
 import com.tvt11.timemanagingapp.repo.TimerRepository;
 import com.tvt11.timemanagingapp.util.DateConverter;
+import com.tvt11.timemanagingapp.util.NotificationUtil;
 import com.tvt11.timemanagingapp.util.PrefUtil;
 
 import java.util.Calendar;
@@ -21,7 +22,7 @@ public class TimerFinishedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // TODO: show notification
+//        NotificationUtil.showTimerStopped(context, "Finished");
 
         timerRepository = new TimerRepository(context.getApplicationContext());
 
