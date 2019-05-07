@@ -3,6 +3,7 @@ package com.tvt11.timemanagingapp.util;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -101,7 +102,6 @@ public class NotificationUtil {
     private static NotificationCompat.Builder getBasicNotificationBuilder(
             Context context, String channelID
     ) {
-        // TODO: implement
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(context, channelID)
                 .setSmallIcon(R.drawable.ic_timer)
                 .setAutoCancel(true)
@@ -110,14 +110,23 @@ public class NotificationUtil {
     }
 
     private static void hideTimerNotification(Context context) {
-        // TODO: implement
+        NotificationManager nManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        nManager.cancel(TIMER_ID);
     }
 
     private static <T> PendingIntent getPendingIntentWithStack(
             Context context,
             Class<T> javaclass
     ) {
-        // TODO: implement
-        return null;
+        Intent resultIntent = new Intent(context, javaclass);
+        resultIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+        stackBuilder.addParentStack(javaclass);
+        stackBuilder.addNextIntent(resultIntent);
+
+        return stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 }
