@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
     private Button cancel_button;
     private Button finish_button;
 
-    // TODO: global in this class or local to a function
     private RecyclerView recyclerView;
     private TimersAdapter timerAdapter;
 

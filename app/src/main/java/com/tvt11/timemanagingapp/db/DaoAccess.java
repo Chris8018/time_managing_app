@@ -26,6 +26,7 @@ public interface DaoAccess {
     List<Timer> finishedTimers();
 
     // TODO: query get unique date
+    // TODO: query get all finished timers by date
 
     @Query("SELECT * FROM Timer WHERE id = :id")
     Timer getByID(int id);

@@ -20,7 +20,7 @@ public class AlarmControl {
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, wakeUpTime, pendingIntent);
 
         PrefUtil.setAlarmSetTime(currentTime, context);
-        return 0;
+        return currentTime;
     }
 
     public static long removeAlarm(Context context) {
