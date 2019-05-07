@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume is fire");
+//        Log.d(TAG, "onResume is fire");
 
         initTimer();
 
@@ -149,6 +149,13 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
             timerID = PrefUtil.getTimerID(this);
             timeTilFinish = PrefUtil.getTimeRemain(this);
             timerName = PrefUtil.getTimerName(this);
+
+            long alarmSetUpTime = PrefUtil.getAlarmSetTime(this);
+            long currentTime = Calendar.getInstance().getTimeInMillis();
+
+            if (alarmSetUpTime > 0)
+                timeTilFinish -= currentTime - alarmSetUpTime;
+
             startTimer();
         }
 
