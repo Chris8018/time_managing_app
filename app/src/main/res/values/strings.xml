@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">My Timer</string>
+    <string name="app_name">Time Managing App</string>
     <string name="main_activity">Main Page</string>
     <string name="create_timer_activity">Add Timer</string>
     <string name="edit_timer_activity">Edit Timer</string>
+    <string name="chart_activity">Stats</string>
+    <string name="contact_activity">Contact Page</string>
     <string name="action_contact">Contact</string>
     <string name="action_chart">Chart</string>
     <string name="action_delete_all">Delete</string>

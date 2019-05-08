@@ -71,6 +71,9 @@
         android:id="@+id/create_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add" />
+        android:background="#2E7D32"
+        android:text="Add"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/button_size" />
 
 </LinearLayout>

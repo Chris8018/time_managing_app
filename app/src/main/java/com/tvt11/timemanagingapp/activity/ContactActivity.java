@@ -19,6 +19,7 @@ public class ContactActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.main_activity);
+        getSupportActionBar().setTitle(R.string.contact_activity);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }
