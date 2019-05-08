@@ -1,6 +1,7 @@
 package com.tvt11.timemanagingapp.activity;
 
 import android.app.DatePickerDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -15,17 +16,27 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.tvt11.timemanagingapp.R;
+import com.tvt11.timemanagingapp.model.Timer;
+import com.tvt11.timemanagingapp.repo.TimerRepository;
 import com.tvt11.timemanagingapp.util.DateConverter;
+import com.tvt11.timemanagingapp.util.TimeConverter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ChartActivity extends AppCompatActivity {
 
     TextView dateView;
     PieChart pieChart;
 
+    TimerRepository timerRepository;
+
     private DatePickerDialog datePickerDialog;
+
+    ArrayList<PieEntry> timersData;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +47,8 @@ public class ChartActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.chart_activity);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        timerRepository = new TimerRepository(getApplicationContext());
 
         Calendar currentDate = Calendar.getInstance();
         int year = currentDate.get(Calendar.YEAR);
@@ -49,38 +62,77 @@ public class ChartActivity extends AppCompatActivity {
         dateView.setOnClickListener(view -> pickDate());
 
         pieChart = findViewById(R.id.pie_chart);
+        drawChart();
+    }
 
-        // TODO need change
+    private void drawChart() {
         pieChart.setUsePercentValues(true);
         pieChart.getDescription().setEnabled(false);
         pieChart.setExtraOffsets(10, 10, 10, 10);
         pieChart.setDrawHoleEnabled(false);
         pieChart.animateY(1000, Easing.EaseInCubic);
 
-        ArrayList NoOfEmp = new ArrayList();
+        timersData = new ArrayList<>();
+        try {
+            prepareData();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        NoOfEmp.add(new PieEntry(945f, "2008"));
-        NoOfEmp.add(new PieEntry(1040f, "2009"));
-        NoOfEmp.add(new PieEntry(1133f, "2010"));
-        NoOfEmp.add(new PieEntry(1240f, "2011"));
-        NoOfEmp.add(new PieEntry(1369f, "2013"));
-        NoOfEmp.add(new PieEntry(1487f, "2014"));
-        NoOfEmp.add(new PieEntry(1501f, "2015"));
-        NoOfEmp.add(new PieEntry(1645f, "2016"));
-        NoOfEmp.add(new PieEntry(1578f, "2017"));
-        NoOfEmp.add(new PieEntry(1695f, "2018"));
-
-        PieDataSet dataSet = new PieDataSet(NoOfEmp, "Task Name");
-
+        PieDataSet dataSet = new PieDataSet(timersData, "Task Name");
         PieData data = new PieData(dataSet);
+
         pieChart.setData(data);
+
         dataSet.setSliceSpace(3f);
         dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
         dataSet.setValueTextSize(15f);
     }
 
+    private void prepareData() throws Exception {
+        String dateStr = dateView.getText().toString();
+        String dateFormatString = DateConverter.stringToDateFormatString(dateStr);
+
+        List<Timer> finishedTimersByDate = timerRepository.getFinishedTimersByDate(dateFormatString);
+        if (finishedTimersByDate.size() == 0)
+            timersData.add(new PieEntry(1, "No Task Finish"));
+        else {
+            AsyncTask<Void, Void, Map<String, Long>> task = new AsyncTask<Void, Void, Map<String, Long>>() {
+                @Override
+                protected Map<String, Long> doInBackground(Void... voids) {
+                    Map<String, Long> map = new HashMap<>();
+                    for (Timer timer: finishedTimersByDate) {
+                        String key = timer.getTaskName();
+                        long value = TimeConverter.fromTimeStamp(timer.getDuration());
+                        if (map.containsKey(key)) {
+                            map.put(key, map.get(key) + value);
+                        } else
+                            map.put(key, value);
+                    }
+                    return map;
+                }
+            }.execute();
+            Map<String, Long> dataMap = task.get();
+
+            for (String key: dataMap.keySet()) {
+                timersData.add(new PieEntry(dataMap.get(key), key));
+            }
+        }
+
+//        timersData.add(new PieEntry(945f, "2008"));
+//        timersData.add(new PieEntry(1040f, "2009"));
+//        timersData.add(new PieEntry(1133f, "2010"));
+//        timersData.add(new PieEntry(1240f, "2011"));
+//        timersData.add(new PieEntry(1369f, "2013"));
+//        timersData.add(new PieEntry(1487f, "2014"));
+//        timersData.add(new PieEntry(1501f, "2015"));
+//        timersData.add(new PieEntry(1645f, "2016"));
+//        timersData.add(new PieEntry(1578f, "2017"));
+//        timersData.add(new PieEntry(1695f, "2018"));
+    }
+
     private void pickDate() {
-        int[] dateValue = DateConverter.StringToDateValue(dateView.getText().toString());
+        int[] dateValue = DateConverter.stringToDateValue(dateView.getText().toString());
         int d = dateValue[0];
         int m = dateValue[1];
         int y = dateValue[2];
@@ -90,7 +142,8 @@ public class ChartActivity extends AppCompatActivity {
                 (view, year, month, dayOfMonth) -> {
                     String dateStr = DateConverter.dateValueToString(year, month, dayOfMonth);
                     dateView.setText(dateStr);
-                }, y, m ,d
+                    drawChart();
+                }, y, m, d
         );
         datePickerDialog.show();
     }

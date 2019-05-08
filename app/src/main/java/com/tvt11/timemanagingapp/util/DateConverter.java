@@ -30,7 +30,7 @@ public class DateConverter {
         return String.format("%02d - %02d - %4d", dayOfMonth, month, year);
     }
 
-    public static int[] StringToDateValue(String dateStr) {
+    public static int[] stringToDateValue(String dateStr) {
         String[] dateStrArray = dateStr.split(" - ");
         int[] result = new int[3];
 
@@ -40,5 +40,15 @@ public class DateConverter {
             i++;
         }
         return result;
+    }
+
+    public static String stringToDateFormatString(String dateStr) {
+        int[] dateValue = stringToDateValue(dateStr);
+        int dayOfMonth = dateValue[0];
+        int month = dateValue[1];
+        int year = dateValue[2];
+
+
+        return String.format("%4d-%02d-%02d", year, month, dayOfMonth);
     }
 }
