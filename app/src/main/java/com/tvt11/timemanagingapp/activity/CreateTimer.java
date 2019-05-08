@@ -36,6 +36,7 @@ public class CreateTimer extends AppCompatActivity {
     private TimeDurationPickerDialog timeDurationPickerDialog;
 
     private String task_str;
+    private String defaultDuration;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,10 +49,13 @@ public class CreateTimer extends AppCompatActivity {
 
         timerRepository = new TimerRepository(getApplicationContext());
 
+        // TODO: make default duration changeable
+        defaultDuration = "00:20:00";
+
         taskName = findViewById(R.id.task_name);
 
         duration = findViewById(R.id.task_duration);
-        duration.setText(R.string.default_duration);
+        duration.setText(defaultDuration);
         duration.setOnClickListener(view -> pickDuration());
 
         desc = findViewById(R.id.task_desc);

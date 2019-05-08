@@ -14,6 +14,7 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.tvt11.timemanagingapp.R;
 import com.tvt11.timemanagingapp.model.Timer;
@@ -28,6 +29,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ChartActivity extends AppCompatActivity {
+
+    private static final String TAG = "ChartActivity";
 
     TextView dateView;
     PieChart pieChart;
@@ -52,7 +55,7 @@ public class ChartActivity extends AppCompatActivity {
 
         Calendar currentDate = Calendar.getInstance();
         int year = currentDate.get(Calendar.YEAR);
-        int month = currentDate.get(Calendar.MONTH);
+        int month = currentDate.get(Calendar.MONTH) + 1;
         int dayOfMonth = currentDate.get(Calendar.DAY_OF_MONTH);
 
         String currentDateStr = DateConverter.dateValueToString(year, month, dayOfMonth);
@@ -71,6 +74,8 @@ public class ChartActivity extends AppCompatActivity {
         pieChart.setExtraOffsets(10, 10, 10, 10);
         pieChart.setDrawHoleEnabled(false);
         pieChart.animateY(1000, Easing.EaseInCubic);
+        pieChart.getLegend().setEnabled(false);
+        pieChart.setTouchEnabled(false);
 
         timersData = new ArrayList<>();
         try {
@@ -85,8 +90,9 @@ public class ChartActivity extends AppCompatActivity {
         pieChart.setData(data);
 
         dataSet.setSliceSpace(3f);
-        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         dataSet.setValueTextSize(15f);
+        dataSet.setValueFormatter(new PercentFormatter(pieChart));
     }
 
     private void prepareData() throws Exception {
@@ -118,29 +124,19 @@ public class ChartActivity extends AppCompatActivity {
                 timersData.add(new PieEntry(dataMap.get(key), key));
             }
         }
-
-//        timersData.add(new PieEntry(945f, "2008"));
-//        timersData.add(new PieEntry(1040f, "2009"));
-//        timersData.add(new PieEntry(1133f, "2010"));
-//        timersData.add(new PieEntry(1240f, "2011"));
-//        timersData.add(new PieEntry(1369f, "2013"));
-//        timersData.add(new PieEntry(1487f, "2014"));
-//        timersData.add(new PieEntry(1501f, "2015"));
-//        timersData.add(new PieEntry(1645f, "2016"));
-//        timersData.add(new PieEntry(1578f, "2017"));
-//        timersData.add(new PieEntry(1695f, "2018"));
     }
 
     private void pickDate() {
         int[] dateValue = DateConverter.stringToDateValue(dateView.getText().toString());
         int d = dateValue[0];
-        int m = dateValue[1];
+        int m = dateValue[1] - 1;
         int y = dateValue[2];
 
         datePickerDialog = new DatePickerDialog(
                 ChartActivity.this,
                 (view, year, month, dayOfMonth) -> {
-                    String dateStr = DateConverter.dateValueToString(year, month, dayOfMonth);
+                    String dateStr =
+                            DateConverter.dateValueToString(year, month + 1, dayOfMonth);
                     dateView.setText(dateStr);
                     drawChart();
                 }, y, m, d
