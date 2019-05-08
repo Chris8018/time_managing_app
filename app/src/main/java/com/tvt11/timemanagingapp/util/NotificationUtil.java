@@ -58,6 +58,7 @@ public class NotificationUtil {
     }
 
     public static void showTimerRunning(Context context, long wakeUpTime) {
+        // TODO change from wake up time to time left
         Intent cancelIntent = new Intent(context, NotificationActionReceiver.class);
         cancelIntent.setAction(AppConstants.ACTION_CANCEL);
 
@@ -105,6 +106,8 @@ public class NotificationUtil {
         }
 
         nManager.notify(TIMER_ID, nBuilder.build());
+
+        // TODO implement thread to update notification
     }
 
     public static void hideTimerNotification(Context context) {
@@ -117,6 +120,12 @@ public class NotificationUtil {
     private static NotificationCompat.Builder getBasicNotificationBuilder(
             Context context, String channelID
     ) {
+        // TODO set content intent with pending intent to main activity
+        Intent mainIntent = new Intent(context, MainActivity.class);
+
+        PendingIntent mainPendingIntent =
+                PendingIntent.getBroadcast(context, 0, mainIntent, 0);
+
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(context, channelID)
                 .setSmallIcon(R.drawable.ic_timer)
                 .setAutoCancel(true)
@@ -128,6 +137,7 @@ public class NotificationUtil {
             Context context,
             Class<T> javaclass
     ) {
+        // TODO delete if not use
         Intent resultIntent = new Intent(context, javaclass);
         resultIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 

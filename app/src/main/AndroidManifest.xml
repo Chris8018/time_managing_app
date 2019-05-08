@@ -30,13 +30,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
         </activity>
+
         <receiver
             android:name=".receiver.NotificationActionReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="cancel"/>
-                <action android:name="finish"/>
+                <action android:name="cancel" />
+                <action android:name="finish" />
             </intent-filter>
         </receiver>
         <receiver

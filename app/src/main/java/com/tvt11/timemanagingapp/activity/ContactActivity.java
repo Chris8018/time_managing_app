@@ -1,5 +1,7 @@
 package com.tvt11.timemanagingapp.activity;
 
-public class ContactActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class ContactActivity extends AppCompatActivity {
     // TODO: implement
 }
