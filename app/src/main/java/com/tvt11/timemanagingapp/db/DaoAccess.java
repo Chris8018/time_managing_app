@@ -28,8 +28,8 @@ public interface DaoAccess {
     @Query("SELECT * FROM Timer WHERE finished = 1")
     List<Timer> finishedTimers();
 
-    // TODO: query get unique date
-    // TODO: query get all finished timers by date
+    @Query("SELECT * FROM Timer WHERE finishedDate = :date AND finished = 1")
+    List<Timer> finishedTimersByDate(String date);
 
     @Query("SELECT * FROM Timer WHERE id = :id")
     Timer getByID(int id);

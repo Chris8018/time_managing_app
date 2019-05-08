@@ -15,12 +15,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
 
 import com.tvt11.timemanagingapp.R;
-
-import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
-
 import com.tvt11.timemanagingapp.model.Timer;
 import com.tvt11.timemanagingapp.repo.TimerRepository;
 import com.tvt11.timemanagingapp.util.TimeConverter;
+
+import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
 public class CreateTimer extends AppCompatActivity {
 
@@ -36,7 +35,6 @@ public class CreateTimer extends AppCompatActivity {
 
     private TimeDurationPickerDialog timeDurationPickerDialog;
 
-    private String defaultDuration = "00:00:10";
     private String task_str;
 
     @Override
@@ -53,7 +51,7 @@ public class CreateTimer extends AppCompatActivity {
         taskName = findViewById(R.id.task_name);
 
         duration = findViewById(R.id.task_duration);
-        duration.setText(defaultDuration);
+        duration.setText(R.string.default_duration);
         duration.setOnClickListener(view -> pickDuration());
 
         desc = findViewById(R.id.task_desc);
@@ -63,21 +61,25 @@ public class CreateTimer extends AppCompatActivity {
             Log.d(TAG, "Create new Timer, add it to the end of current list");
             task_str = taskName.getText().toString().trim();
 
-            if (!TextUtils.isEmpty(task_str)) {
+            if (!TextUtils.isEmpty(task_str) &&
+                    TimeConverter.fromTimeStamp(duration.getText().toString()) > 0)
                 addTimer();
-            }
 
             if (TextUtils.isEmpty(task_str))
                 taskName.setError("The item cannot be empty");
+
+            if (TimeConverter.fromTimeStamp(duration.getText().toString()) <= 0)
+                duration.setError("Duration should be higher than 0");
         });
 
     }
 
     private void pickDuration() {
         timeDurationPickerDialog = new TimeDurationPickerDialog(
-                CreateTimer.this, (timePicker, time) -> {
-            duration.setText(TimeConverter.toTimeStamp(time));
-        }, TimeConverter.fromTimeStamp(duration.getText().toString()));
+                CreateTimer.this,
+                (timePicker, time) -> duration.setText(TimeConverter.toTimeStamp(time)),
+                TimeConverter.fromTimeStamp(duration.getText().toString())
+        );
         timeDurationPickerDialog.show();
     }
 

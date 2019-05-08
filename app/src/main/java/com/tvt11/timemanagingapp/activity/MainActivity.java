@@ -18,11 +18,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tvt11.timemanagingapp.R;
 import com.tvt11.timemanagingapp.adapter.TimersAdapter;
 import com.tvt11.timemanagingapp.model.Timer;
 import com.tvt11.timemanagingapp.repo.TimerRepository;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tvt11.timemanagingapp.util.AlarmControl;
 import com.tvt11.timemanagingapp.util.DateConverter;
 import com.tvt11.timemanagingapp.util.NotificationUtil;

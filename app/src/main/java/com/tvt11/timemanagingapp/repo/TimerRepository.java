@@ -33,6 +33,21 @@ public class TimerRepository {
         return timerDatabase.daoAccess().observeScheduledTimer();
     }
 
+    public List<Timer> getScheduledTimers() {
+        try {
+            AsyncTask<Void, Void, List<Timer>> task = new AsyncTask<Void, Void, List<Timer>>() {
+                @Override
+                protected List<Timer> doInBackground(Void... voids) {
+                    return timerDatabase.daoAccess().getScheduledTimer();
+                }
+            }.execute();
+            return task.get();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public void deleteScheduledTimers() {
         new Thread(() -> {
             List<Timer> timers = timerDatabase.daoAccess().getScheduledTimer();
@@ -41,12 +56,36 @@ public class TimerRepository {
         }).start();
     }
 
-    // TODO: get unique date
-
     public List<Timer> getFinishedTimers() {
-        // TODO: implement Async
-        return timerDatabase.daoAccess().finishedTimers();
+        try {
+            AsyncTask<Void, Void, List<Timer>> task = new AsyncTask<Void, Void, List<Timer>>() {
+                @Override
+                protected List<Timer> doInBackground(Void... voids) {
+                    return timerDatabase.daoAccess().finishedTimers();
+                }
+            }.execute();
+            return task.get();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
+
+    public List<Timer> getFinishedTimersByDate(String date) {
+        try {
+            AsyncTask<Void, Void, List<Timer>> task = new AsyncTask<Void, Void, List<Timer>>() {
+                @Override
+                protected List<Timer> doInBackground(Void... voids) {
+                    return timerDatabase.daoAccess().finishedTimersByDate(date);
+                }
+            }.execute();
+            return task.get();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     public Timer getByID(int id) {
         try {

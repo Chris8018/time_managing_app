@@ -57,9 +57,7 @@ public class EditTimer extends AppCompatActivity {
 
         duration = findViewById(R.id.task_duration);
         duration.setText(timer.getDuration());
-        duration.setOnClickListener(view -> {
-            pickDuration();
-        });
+        duration.setOnClickListener(view -> pickDuration());
 
         desc = findViewById(R.id.task_desc);
         desc.setText(timer.getDescription());
@@ -70,21 +68,25 @@ public class EditTimer extends AppCompatActivity {
             Log.d(TAG, "Create new Timer, add it to the end of current list");
             task_str = taskName.getText().toString().trim();
 
-            if (!TextUtils.isEmpty(task_str)) {
+            if (!TextUtils.isEmpty(task_str) &&
+                    TimeConverter.fromTimeStamp(duration.getText().toString()) > 0)
                 addTimer();
-            }
 
             if (TextUtils.isEmpty(task_str))
                 taskName.setError("The item cannot be empty");
+
+            if (TimeConverter.fromTimeStamp(duration.getText().toString()) <= 0)
+                duration.setError("Duration should be higher than 0");
         });
 
     }
 
     private void pickDuration() {
         timeDurationPickerDialog = new TimeDurationPickerDialog(
-                EditTimer.this, (timePicker, time) -> {
-            duration.setText(TimeConverter.toTimeStamp(time));
-        }, TimeConverter.fromTimeStamp(duration.getText().toString()));
+                EditTimer.this,
+                (timePicker, time) -> duration.setText(TimeConverter.toTimeStamp(time)),
+                TimeConverter.fromTimeStamp(duration.getText().toString())
+        );
         timeDurationPickerDialog.show();
     }
 

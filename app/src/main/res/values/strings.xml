@@ -11,4 +11,5 @@
     <string name="author">Trieu Vi Tran (Chris)</string>
     <string name="email">t.tran4@uni.brighton.ac.uk</string>
     <string name="github">https://github.com/Chris8018</string>
+    <string name="default_duration">00:00:10</string>
 </resources>
