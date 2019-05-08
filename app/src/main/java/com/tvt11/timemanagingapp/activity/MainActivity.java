@@ -232,6 +232,10 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
     @Override
     public void onCardLongClick(int position) {
         // TODO: start edit activity
+        Timer timer = timerAdapter.getAt(position);
+        Intent editTimer = new Intent(MainActivity.this, EditTimer.class);
+        editTimer.putExtra("edit_timer_id", timer.getId());
+        startActivity(editTimer);
     }
 
     @Override

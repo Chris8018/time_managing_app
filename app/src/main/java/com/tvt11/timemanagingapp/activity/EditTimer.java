@@ -20,7 +20,7 @@ import com.tvt11.timemanagingapp.repo.TimerRepository;
 import com.tvt11.timemanagingapp.util.TimeConverter;
 
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
-// TODO: change
+
 public class EditTimer extends AppCompatActivity {
 
     private static final String TAG = "EditTimer";
@@ -29,13 +29,15 @@ public class EditTimer extends AppCompatActivity {
     private TextView duration;
     private EditText desc;
 
-    private Button createTimerButton;
+    private Button saveButton;
 
     private TimerRepository timerRepository;
 
     private TimeDurationPickerDialog timeDurationPickerDialog;
 
     private String task_str;
+    private int timerID;
+    private Timer timer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,18 +49,24 @@ public class EditTimer extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         timerRepository = new TimerRepository(getApplicationContext());
+        timerID = getIntent().getIntExtra("edit_timer_id", 0);
+        timer = timerRepository.getByID(timerID);
 
         taskName = findViewById(R.id.task_name);
+        taskName.setText(timer.getTaskName());
 
         duration = findViewById(R.id.task_duration);
+        duration.setText(timer.getDuration());
         duration.setOnClickListener(view -> {
             pickDuration();
         });
 
         desc = findViewById(R.id.task_desc);
+        desc.setText(timer.getDescription());
 
-        createTimerButton = findViewById(R.id.create_button);
-        createTimerButton.setOnClickListener(view -> {
+        saveButton = findViewById(R.id.create_button);
+        saveButton.setText("SAVE");
+        saveButton.setOnClickListener(view -> {
             Log.d(TAG, "Create new Timer, add it to the end of current list");
             task_str = taskName.getText().toString().trim();
 
@@ -81,9 +89,10 @@ public class EditTimer extends AppCompatActivity {
     }
 
     private void addTimer() {
-        Timer timer = new Timer(task_str, duration.getText().toString());
+        timer.setTaskName(task_str);
+        timer.setDuration(duration.getText().toString());
         timer.setDescription(desc.getText().toString());
-        timerRepository.insertTask(timer);
+        timerRepository.updateTimer(timer);
         startActivity(new Intent(EditTimer.this, MainActivity.class));
     }
 

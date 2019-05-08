@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Time Managing App</string>
-    <string name="main_activity">Main Page</string>
+    <string name="main_activity">Task Planned</string>
     <string name="create_timer_activity">Add Timer</string>
     <string name="edit_timer_activity">Edit Timer</string>
     <string name="chart_activity">Stats</string>
