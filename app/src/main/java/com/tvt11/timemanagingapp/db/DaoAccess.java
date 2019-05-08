@@ -18,6 +18,9 @@ public interface DaoAccess {
     @Insert
     Long insertTask(Timer timer);
 
+    @Query("SELECT * FROM Timer")
+    List<Timer> getAllTimers();
+
 
     @Query("SELECT * FROM Timer WHERE finished = 0 AND running = 0")
     LiveData<List<Timer>> observeScheduledTimer();

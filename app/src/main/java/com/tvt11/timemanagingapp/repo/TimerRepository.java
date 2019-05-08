@@ -29,6 +29,21 @@ public class TimerRepository {
         new Thread(() -> timerDatabase.daoAccess().insertTask(timer)).start();
     }
 
+    public List<Timer> getAllTimers() {
+        try {
+            AsyncTask<Void, Void, List<Timer>> task = new AsyncTask<Void, Void, List<Timer>>() {
+                @Override
+                protected List<Timer> doInBackground(Void... voids) {
+                    return timerDatabase.daoAccess().getAllTimers();
+                }
+            }.execute();
+            return task.get();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public LiveData<List<Timer>> observeScheduledTimer() {
         return timerDatabase.daoAccess().observeScheduledTimer();
     }

@@ -1,12 +1,15 @@
 package com.tvt11.timemanagingapp.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
 public class Timer {
 
+    @NonNull
     @PrimaryKey(autoGenerate = true)
     private int id;
 
@@ -26,11 +29,29 @@ public class Timer {
     private boolean running = false;
 
     @ColumnInfo(name = "description")
-    private String description;
+    private String description = "";
 
+//    @Ignore
     public Timer(String taskName, String duration) {
         this.taskName = taskName;
         this.duration = duration;
+    }
+
+    @Ignore
+    public Timer(
+            String taskName,
+            String duration,
+            String date,
+            boolean finished,
+            boolean running,
+            String description
+    ) {
+        this.taskName = taskName;
+        this.duration = duration;
+        this.date = date;
+        this.finished = finished;
+        this.running = running;
+        this.description = description;
     }
 
     public String getTaskName() {
