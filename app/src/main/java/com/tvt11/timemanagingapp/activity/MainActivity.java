@@ -257,8 +257,8 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
             startActivity(contactPage);
             return true;
         } else if (id == R.id.action_chart) {
-//            Intent chartPage = new Intent(MainActivity.this, ChartActivity.class);
-//            startActivity(chartPage);
+            Intent chartPage = new Intent(MainActivity.this, ChartActivity.class);
+            startActivity(chartPage);
             return true;
         } else if (id == R.id.action_delete_all) {
             timerRepository.deleteScheduledTimers();
