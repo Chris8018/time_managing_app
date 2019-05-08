@@ -34,6 +34,8 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements TimersAdapter.ListItemListener {
 
+    // TODO add swipe to recycler view holder
+
     private static final String TAG = "MainActivity";
 
     private FloatingActionButton add_timer_button;
