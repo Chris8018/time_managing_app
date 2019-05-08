@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
     protected void onResume() {
         super.onResume();
 
-        timerRepository.getScheduledTimers().observe(this, timers -> {
+        timerRepository.observeScheduledTimer().observe(this, timers -> {
             timerAdapter = new TimersAdapter(this, timers);
             recyclerView.setAdapter(timerAdapter);
         });
@@ -256,7 +256,7 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
             // TODO: go to chart activity
             return true;
         } else if (id == R.id.action_delete_all) {
-            // TODO: delete all scheduled timer
+            timerRepository.deleteScheduledTimers();
             return true;
         }
 

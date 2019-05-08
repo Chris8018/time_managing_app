@@ -29,8 +29,16 @@ public class TimerRepository {
         new Thread(() -> timerDatabase.daoAccess().insertTask(timer)).start();
     }
 
-    public LiveData<List<Timer>> getScheduledTimers() {
-        return timerDatabase.daoAccess().scheduledTimers();
+    public LiveData<List<Timer>> observeScheduledTimer() {
+        return timerDatabase.daoAccess().observeScheduledTimer();
+    }
+
+    public void deleteScheduledTimers() {
+        new Thread(() -> {
+            List<Timer> timers = timerDatabase.daoAccess().getScheduledTimer();
+            for(Timer timer: timers)
+                deleteTimer(timer);
+        }).start();
     }
 
     // TODO: get unique date

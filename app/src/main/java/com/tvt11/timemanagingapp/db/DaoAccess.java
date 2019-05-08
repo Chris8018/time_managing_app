@@ -20,7 +20,10 @@ public interface DaoAccess {
 
 
     @Query("SELECT * FROM Timer WHERE finished = 0 AND running = 0")
-    LiveData<List<Timer>> scheduledTimers();
+    LiveData<List<Timer>> observeScheduledTimer();
+
+    @Query("SELECT * FROM Timer WHERE finished = 0 AND running = 0")
+    List<Timer> getScheduledTimer();
 
     @Query("SELECT * FROM Timer WHERE finished = 1")
     List<Timer> finishedTimers();
