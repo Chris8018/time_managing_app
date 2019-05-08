@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
         cancel_button.setOnClickListener(view -> {
             if (timerState == TimerState.Running) {
                 cdt.cancel();
-                timerRepository.updateTimerRunning(timerID);
+                timerRepository.updateTimerRunning(timerID, false);
 
                 timerState = TimerState.NoTimer;
                 updateTimerGUI();
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
 
     private void updateTimerGUI() {
         if (timerState == TimerState.NoTimer) {
-            timerName = "No Timer";
+            timerName = "No Timer Running";
             timeTilFinish = 0;
         }
 

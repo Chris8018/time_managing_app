@@ -3,18 +3,17 @@ package com.tvt11.timemanagingapp.util;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
 import com.tvt11.timemanagingapp.R;
-import com.tvt11.timemanagingapp.activity.MainActivity;
 import com.tvt11.timemanagingapp.receiver.NotificationActionReceiver;
 
 import java.text.DateFormat;
@@ -35,7 +34,7 @@ public class NotificationUtil {
         String timerName = PrefUtil.getTimerName(context);
 
         NotificationCompat.Builder nBuilder =
-                getBasicNotificationBuilder(context, CHANNEL_NAME_TIMER);
+                getBasicNotificationBuilder(context, CHANNEL_ID_TIMER);
 
         nBuilder.setContentTitle(timerName)
                 .setContentText(status)
@@ -47,8 +46,6 @@ public class NotificationUtil {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel nChannel = new NotificationChannel(
                     CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, NotificationManager.IMPORTANCE_LOW);
-            nChannel.enableLights(true);
-            nChannel.setLightColor(Color.BLUE);
 
             nManager.createNotificationChannel(nChannel);
         }
@@ -58,7 +55,7 @@ public class NotificationUtil {
     }
 
     public static void showTimerRunning(Context context, long wakeUpTime) {
-        // TODO change from wake up time to time left
+        // TODO: change this to show time left until finish
         Intent cancelIntent = new Intent(context, NotificationActionReceiver.class);
         cancelIntent.setAction(AppConstants.ACTION_CANCEL);
 
@@ -84,11 +81,11 @@ public class NotificationUtil {
         DateFormat df = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT);
 
         NotificationCompat.Builder nBuilder =
-                getBasicNotificationBuilder(context, CHANNEL_NAME_TIMER);
+                getBasicNotificationBuilder(context, CHANNEL_ID_TIMER);
 
         nBuilder.setContentTitle(timerName)
                 .setContentText("End at " + df.format(new Date(wakeUpTime)))
-//                .setContentIntent(getPendingIntentWithStack(context, MainActivity.class))
+                .setUsesChronometer(true)
                 .setOngoing(true)
                 .addAction(cancelAction)
                 .addAction(finishAction);
@@ -97,17 +94,14 @@ public class NotificationUtil {
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Log.d(TAG, "Android Version is >= Oreo");
             NotificationChannel nChannel = new NotificationChannel(
-                    CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, NotificationManager.IMPORTANCE_LOW);
-            nChannel.enableLights(true);
-            nChannel.setLightColor(Color.BLUE);
+                    CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, NotificationManager.IMPORTANCE_DEFAULT);
 
             nManager.createNotificationChannel(nChannel);
         }
 
         nManager.notify(TIMER_ID, nBuilder.build());
-
-        // TODO implement thread to update notification
     }
 
     public static void hideTimerNotification(Context context) {
@@ -120,31 +114,10 @@ public class NotificationUtil {
     private static NotificationCompat.Builder getBasicNotificationBuilder(
             Context context, String channelID
     ) {
-        // TODO set content intent with pending intent to main activity
-        Intent mainIntent = new Intent(context, MainActivity.class);
-
-        PendingIntent mainPendingIntent =
-                PendingIntent.getBroadcast(context, 0, mainIntent, 0);
-
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(context, channelID)
                 .setSmallIcon(R.drawable.ic_timer)
                 .setAutoCancel(true)
                 .setDefaults(0);
         return nBuilder;
-    }
-
-    private static <T> PendingIntent getPendingIntentWithStack(
-            Context context,
-            Class<T> javaclass
-    ) {
-        // TODO delete if not use
-        Intent resultIntent = new Intent(context, javaclass);
-        resultIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(javaclass);
-        stackBuilder.addNextIntent(resultIntent);
-
-        return stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 }
