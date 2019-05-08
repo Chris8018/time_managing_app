@@ -231,7 +231,6 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
 
     @Override
     public void onCardLongClick(int position) {
-        // TODO: start edit activity
         Timer timer = timerAdapter.getAt(position);
         Intent editTimer = new Intent(MainActivity.this, EditTimer.class);
         editTimer.putExtra("edit_timer_id", timer.getId());
@@ -254,10 +253,12 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_contact) {
-            // TODO: go to contact activity
+            Intent contactPage = new Intent(MainActivity.this, ContactActivity.class);
+            startActivity(contactPage);
             return true;
         } else if (id == R.id.action_chart) {
-            // TODO: go to chart activity
+//            Intent chartPage = new Intent(MainActivity.this, ChartActivity.class);
+//            startActivity(chartPage);
             return true;
         } else if (id == R.id.action_delete_all) {
             timerRepository.deleteScheduledTimers();

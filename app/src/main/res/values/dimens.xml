@@ -3,4 +3,7 @@
     <dimen name="button_size">20sp</dimen>
     <dimen name="scheduled_timer_text">18sp</dimen>
     <dimen name="running_timer">25sp</dimen>
+    <dimen name="text_margin">10dp</dimen>
+    <dimen name="title_size">20sp</dimen>
+    <dimen name="text_size">15sp</dimen>
 </resources>

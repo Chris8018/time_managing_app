@@ -13,13 +13,6 @@ public class TimeConverter {
         int m = time_in_second / 60 % 60;
         int s = time_in_second % 60;
 
-//        String hours, minutes, seconds;
-//
-//        hours = Integer.toString(h).length() == 1 ? "0" + h : "" + h;
-//        minutes = Integer.toString(m).length() == 1 ? "0" + m : "" + m;
-//        seconds = Integer.toString(s).length() == 1 ? "0" + s : "" + s;
-//
-//        return hours + ":" + minutes + ":" + seconds;
         String timeStr = String.format("%02d:%02d:%02d", h, m, s);
         return timeStr;
     }
