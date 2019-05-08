@@ -73,11 +73,6 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        timerRepository.getScheduledTimers().observe(this, timers -> {
-            timerAdapter = new TimersAdapter(this, timers);
-            recyclerView.setAdapter(timerAdapter);
-        });
-
         add_timer_button = findViewById(R.id.add_timer_button);
         add_timer_button.setOnClickListener(view -> {
             Intent addTimer = new Intent(MainActivity.this, CreateTimer.class);
@@ -113,7 +108,11 @@ public class MainActivity extends AppCompatActivity implements TimersAdapter.Lis
     @Override
     protected void onResume() {
         super.onResume();
-//        Log.d(TAG, "onResume is fire");
+
+        timerRepository.getScheduledTimers().observe(this, timers -> {
+            timerAdapter = new TimersAdapter(this, timers);
+            recyclerView.setAdapter(timerAdapter);
+        });
 
         initTimer();
 
